@@ -4,7 +4,6 @@ import com.bodegacore.dto.AssetDTO;
 import com.bodegacore.dto.CustodianDTO;
 import com.bodegacore.exception.ResourceNotFoundException;
 import com.bodegacore.model.Asset;
-import com.bodegacore.model.Custodian;
 import com.bodegacore.repository.AssetRepository;
 import com.bodegacore.repository.CustodianRepository;
 import java.util.List;

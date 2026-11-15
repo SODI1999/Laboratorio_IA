@@ -9,8 +9,8 @@
   "qualityGates": "",
   "agent": "plugin",
   "language": "es",
-  "active_spec": "002-cierre-entregable-calidad",
-  "active_archetype": "debt",
+  "active_spec": null,
+  "active_archetype": null,
   "specs": [
     {
       "id": "001",
@@ -286,9 +286,208 @@
       "type": "debt",
       "slug": "002-cierre-entregable-calidad",
       "title": "Cierre Entregable Calidad",
-      "status": "IN_PROGRESS",
+      "status": "COMPLETED",
       "created_at": "2026-11-15",
-      "branch": "debt/002-cierre-entregable-calidad"
+      "branch": "debt/002-cierre-entregable-calidad",
+      "updated_at": "2026-11-15T07:46:12.783Z",
+      "completed_at": "2026-11-15T07:46:12.783Z",
+      "verification": {
+        "mode": "automated",
+        "verifiedAt": "2026-11-15T07:46:06.344Z",
+        "fingerprint": "accae275e0b9d530c598df9260ea1435d1bd488e2846ea80477a822269c0426a",
+        "acceptance": {
+          "criteria": [
+            {
+              "id": "AC-01",
+              "status": "passed",
+              "method": "automated",
+              "kind": "functional",
+              "checkIds": [
+                "frontend-build",
+                "frontend-lint"
+              ],
+              "exercises": "Compilacion TypeScript estricta (tsc -b), empaquetado de produccion Vite (vite build) y analisis estatico oxlint con 116 reglas sobre los 38 archivos de frontend/src, complementado con inspeccion DOM en Chrome DevTools.",
+              "limits": "No existe suite de pruebas unitarias/E2E en frontend; frontend-build y frontend-lint validan compilacion, tipos y reglas estaticas, mientras la ausencia visual de la pestaña Showcase se comprobo manualmente en Chrome DevTools.",
+              "checks": [
+                {
+                  "checkId": "frontend-build",
+                  "command": "npm run build",
+                  "cwd": "frontend",
+                  "status": "PASSED"
+                },
+                {
+                  "checkId": "frontend-lint",
+                  "command": "npm run lint",
+                  "cwd": "frontend",
+                  "status": "PASSED"
+                }
+              ],
+              "execution": "PASSED"
+            },
+            {
+              "id": "AC-02",
+              "status": "passed",
+              "method": "automated",
+              "kind": "functional",
+              "checkIds": [
+                "frontend-build",
+                "frontend-lint"
+              ],
+              "exercises": "Ejecucion real de oxlint (116 reglas, 38 archivos) y tsc -b && vite build sobre frontend/src.",
+              "limits": "oxlint y tsc verifican seguridad de tipos y reglas estaticas sin ejecutar pruebas unitarias de componentes React (no hay suite Vitest/Jest configurada).",
+              "checks": [
+                {
+                  "checkId": "frontend-build",
+                  "command": "npm run build",
+                  "cwd": "frontend",
+                  "status": "PASSED"
+                },
+                {
+                  "checkId": "frontend-lint",
+                  "command": "npm run lint",
+                  "cwd": "frontend",
+                  "status": "PASSED"
+                }
+              ],
+              "execution": "PASSED"
+            },
+            {
+              "id": "AC-03",
+              "status": "passed",
+              "method": "automated",
+              "kind": "functional",
+              "checkIds": [
+                "backend-tests"
+              ],
+              "exercises": "Contexto Spring Boot y las 11 pruebas reales JUnit/MockMvc/DataJpaTest sobre base H2 en memoria cargada con DataInitializer.",
+              "limits": "Ejecutado exclusivamente contra base de datos H2 en memoria; Hibernate reporta advertencia de deprecacion por org.hibernate.dialect.H2Dialect en application.properties.",
+              "checks": [
+                {
+                  "checkId": "backend-tests",
+                  "command": "node run-tests.mjs",
+                  "cwd": ".",
+                  "status": "PASSED"
+                }
+              ],
+              "execution": "PASSED"
+            },
+            {
+              "id": "AC-04",
+              "status": "passed",
+              "method": "automated",
+              "kind": "functional",
+              "checkIds": [
+                "deliverables-check"
+              ],
+              "exercises": "Lectura directa de PRD.md verificando presencia de 'Fase Futura' y 'DE_BAJA' en las exclusiones declaradas, contrastado contra la API REST implementada.",
+              "limits": "Valida alineacion de alcance textual en PRD.md respecto a los endpoints implementados; no cubre pruebas funcionales de endpoints futuros.",
+              "checks": [
+                {
+                  "checkId": "deliverables-check",
+                  "command": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const assert=(c,m)=>{if(!c)throw new Error(m)};assert(!fs.existsSync('frontend/src/views/ComponentShowcase.tsx'),'Showcase exists');const prd=fs.readFileSync('PRD.md','utf8');assert(prd.includes('Fase Futura')&&prd.includes('DE_BAJA'),'PRD check');const spec=fs.readFileSync('SPEC-TECNICA.md','utf8');assert(spec.includes('19.3.1')&&spec.includes('/api/assets/recommendations')&&spec.includes('Plan de Pruebas')&&spec.includes('CustodiansView'),'SPEC check');const readme=fs.readFileSync('README.md','utf8');assert(readme.includes('npm run lint')&&readme.includes('P10')&&readme.includes('Hallazgos de Calidad'),'README check');const gi=fs.readFileSync('.gitignore','utf8');assert(gi.includes('backend/target')&&gi.includes('node_modules'),'.gitignore check');assert(execSync('git rev-parse --is-inside-work-tree',{encoding:'utf8'}).trim()==='true','git repo');assert(execSync('git remote',{encoding:'utf8'}).trim()==='','git remote not empty');assert(execSync('git log -1 --pretty=%s',{encoding:'utf8'}).trim().length>0,'git commit missing');console.log('ALL_DELIVERABLES_VERIFIED')\"",
+                  "cwd": ".",
+                  "status": "PASSED"
+                }
+              ],
+              "execution": "PASSED"
+            },
+            {
+              "id": "AC-05",
+              "status": "passed",
+              "method": "automated",
+              "kind": "functional",
+              "checkIds": [
+                "deliverables-check"
+              ],
+              "exercises": "Verificacion automatica de secciones y marcadores clave en SPEC-TECNICA.md contrastados con backend/pom.xml, frontend/package.json y archivos en disco.",
+              "limits": "El check automatizado comprueba marcadores clave de SPEC-TECNICA.md; la coherencia integral del documento se valido mediante lectura directa.",
+              "checks": [
+                {
+                  "checkId": "deliverables-check",
+                  "command": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const assert=(c,m)=>{if(!c)throw new Error(m)};assert(!fs.existsSync('frontend/src/views/ComponentShowcase.tsx'),'Showcase exists');const prd=fs.readFileSync('PRD.md','utf8');assert(prd.includes('Fase Futura')&&prd.includes('DE_BAJA'),'PRD check');const spec=fs.readFileSync('SPEC-TECNICA.md','utf8');assert(spec.includes('19.3.1')&&spec.includes('/api/assets/recommendations')&&spec.includes('Plan de Pruebas')&&spec.includes('CustodiansView'),'SPEC check');const readme=fs.readFileSync('README.md','utf8');assert(readme.includes('npm run lint')&&readme.includes('P10')&&readme.includes('Hallazgos de Calidad'),'README check');const gi=fs.readFileSync('.gitignore','utf8');assert(gi.includes('backend/target')&&gi.includes('node_modules'),'.gitignore check');assert(execSync('git rev-parse --is-inside-work-tree',{encoding:'utf8'}).trim()==='true','git repo');assert(execSync('git remote',{encoding:'utf8'}).trim()==='','git remote not empty');assert(execSync('git log -1 --pretty=%s',{encoding:'utf8'}).trim().length>0,'git commit missing');console.log('ALL_DELIVERABLES_VERIFIED')\"",
+                  "cwd": ".",
+                  "status": "PASSED"
+                }
+              ],
+              "execution": "PASSED"
+            },
+            {
+              "id": "AC-06",
+              "status": "passed",
+              "method": "automated",
+              "kind": "functional",
+              "checkIds": [
+                "deliverables-check"
+              ],
+              "exercises": "Verificacion automatica de presencia de 'npm run lint', 'P10' y 'Hallazgos de Calidad' en README.md, junto con verificacion previa contra salidas reales de tests y REST.",
+              "limits": "La matriz P01-P10 combina verificacion automatizada JUnit (P01-P05, P10), llamadas REST en vivo (P06-P09) e inspeccion visual/UI.",
+              "checks": [
+                {
+                  "checkId": "deliverables-check",
+                  "command": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const assert=(c,m)=>{if(!c)throw new Error(m)};assert(!fs.existsSync('frontend/src/views/ComponentShowcase.tsx'),'Showcase exists');const prd=fs.readFileSync('PRD.md','utf8');assert(prd.includes('Fase Futura')&&prd.includes('DE_BAJA'),'PRD check');const spec=fs.readFileSync('SPEC-TECNICA.md','utf8');assert(spec.includes('19.3.1')&&spec.includes('/api/assets/recommendations')&&spec.includes('Plan de Pruebas')&&spec.includes('CustodiansView'),'SPEC check');const readme=fs.readFileSync('README.md','utf8');assert(readme.includes('npm run lint')&&readme.includes('P10')&&readme.includes('Hallazgos de Calidad'),'README check');const gi=fs.readFileSync('.gitignore','utf8');assert(gi.includes('backend/target')&&gi.includes('node_modules'),'.gitignore check');assert(execSync('git rev-parse --is-inside-work-tree',{encoding:'utf8'}).trim()==='true','git repo');assert(execSync('git remote',{encoding:'utf8'}).trim()==='','git remote not empty');assert(execSync('git log -1 --pretty=%s',{encoding:'utf8'}).trim().length>0,'git commit missing');console.log('ALL_DELIVERABLES_VERIFIED')\"",
+                  "cwd": ".",
+                  "status": "PASSED"
+                }
+              ],
+              "execution": "PASSED"
+            },
+            {
+              "id": "AC-07",
+              "status": "passed",
+              "method": "manual",
+              "kind": "visual",
+              "observations": [
+                {
+                  "actor": "agent",
+                  "observer": "Antigravity (Gemini CLI/IDE Agent)",
+                  "sessionId": "71dc019a-c3ab-45ff-8b24-49668855bdc4",
+                  "surface": "http://localhost:5173/",
+                  "environment": "Chrome DevTools MCP, Vite ^8.3.6 (puerto 5173), Spring Boot 3.3.5 + H2 en memoria (puerto 8080, 20 activos precargados)",
+                  "steps": [
+                    "Redimensionar ventana desktop a 1280x800 en http://localhost:5173/",
+                    "Verificar botones de TopNavbar, contenido de Tablero Ejecutivo y metricas DOM (innerWidth, scrollWidth)",
+                    "Listar mensajes de consola filtrados por error, warn e issue",
+                    "Revisar las 6 capturas guardadas en evidence/ sobre la misma compilacion (Dashboard desktop, Catalogo, EmptyState NOEXISTE, Modal Nuevo Activo, Custodios y Tablero en viewport estrecho)"
+                  ],
+                  "expected": "Render completo de Tablero, Catalogo, EmptyState, Modal y Custodios sin Showcase ni errores de consola, con documentacion honesta de cualquier hallazgo de ancho estrecho o accesibilidad.",
+                  "actual": "Desktop 1280x800 renderizo sin desbordamiento (innerWidth: 1280, scrollWidth: 1265), TopNavbar mostro unicamente ['Dashboard6', 'Catálogo', 'Custodios'], consola con 0 errores/warnings y 2 avisos issue de DevTools (12 campos sin id/name, 9 sin <label>); en viewport estrecho (solicitud 375x812, real 500x812) dashboard-mobile.png mostro scrollWidth 571 > 500 en TopNavbar.",
+                  "result": "passed",
+                  "observedAt": "2026-11-15T07:42:53.584Z",
+                  "viewport": {
+                    "width": 1280,
+                    "height": 800
+                  },
+                  "artifact": "evidence/dashboard-desktop.png"
+                }
+              ],
+              "limits": "En modo movil el navegador Chromium impuso un ancho minimo de ventana de 500 px al solicitar 375x812 y TopNavbar desborda horizontalmente (571 px vs 500 px); las 6 capturas PNG fueron tomadas minutos antes sobre la misma compilacion bf90bd7 y el render desktop sin errores de consola fue re-verificado tras session-record."
+            },
+            {
+              "id": "AC-08",
+              "status": "passed",
+              "method": "automated",
+              "kind": "functional",
+              "checkIds": [
+                "deliverables-check"
+              ],
+              "exercises": "Comprobacion de .gitignore (backend/target y node_modules), git rev-parse --is-inside-work-tree === true, git remote vacio y existencia de commit en git log -1.",
+              "limits": "Al registrar la evidencia final de OmniSpec quedaran cambios posteriores en specs/ sin un nuevo commit, respetando la regla de no ejecutar commit ni push automatico durante converge.",
+              "checks": [
+                {
+                  "checkId": "deliverables-check",
+                  "command": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const assert=(c,m)=>{if(!c)throw new Error(m)};assert(!fs.existsSync('frontend/src/views/ComponentShowcase.tsx'),'Showcase exists');const prd=fs.readFileSync('PRD.md','utf8');assert(prd.includes('Fase Futura')&&prd.includes('DE_BAJA'),'PRD check');const spec=fs.readFileSync('SPEC-TECNICA.md','utf8');assert(spec.includes('19.3.1')&&spec.includes('/api/assets/recommendations')&&spec.includes('Plan de Pruebas')&&spec.includes('CustodiansView'),'SPEC check');const readme=fs.readFileSync('README.md','utf8');assert(readme.includes('npm run lint')&&readme.includes('P10')&&readme.includes('Hallazgos de Calidad'),'README check');const gi=fs.readFileSync('.gitignore','utf8');assert(gi.includes('backend/target')&&gi.includes('node_modules'),'.gitignore check');assert(execSync('git rev-parse --is-inside-work-tree',{encoding:'utf8'}).trim()==='true','git repo');assert(execSync('git remote',{encoding:'utf8'}).trim()==='','git remote not empty');assert(execSync('git log -1 --pretty=%s',{encoding:'utf8'}).trim().length>0,'git commit missing');console.log('ALL_DELIVERABLES_VERIFIED')\"",
+                  "cwd": ".",
+                  "status": "PASSED"
+                }
+              ],
+              "execution": "PASSED"
+            }
+          ],
+          "scope": "DECLARED_EVIDENCE_WITH_EXECUTED_CHECK_BINDINGS",
+          "truthOfEvidence": "AGENT_OR_HUMAN_REVIEW_REQUIRED",
+          "automatedChecksPassed": true
+        }
+      }
     }
   ]
 }

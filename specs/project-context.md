@@ -1,72 +1,64 @@
 # Contexto del proyecto
 
-Contexto del proyecto para el Laboratorio de IA (Fundamentos de Sistemas de Información).
+Contexto del proyecto para el Laboratorio de IA (Diseño del Sistema).
 
 ## 1. Estado del onboarding y alcance
 - Estado: CONTEXT_RECORDED
-- Validación de la aplicación: APPLICATION_NOT_VALIDATED
-- Fecha del inventario: 2026-11-11T05:25:00.000Z
-- Cobertura: Inspección heurística del entorno Windows y análisis de la guía base ([Guia_Laboratorio_IA.pdf](../Guia_Laboratorio_IA.pdf)). Proyecto greenfield sin código previo en el espacio de trabajo.
-- Caso de estudio aprobado: Administración de Activos de una Bodega (Equipos, Herramientas, Infraestructura TI), conforme al ejercicio propuesto en la sección 7 de la guía académica.
+- Validación de la aplicación: APPLICATION_VALIDATED
+- Fecha de actualización del inventario: 2026-11-15T07:42:00.000Z
+- Cobertura: Código backend y frontend operativos, documentación académica completa ([INFORME-LABORATORIO.pdf](../INFORME-LABORATORIO.pdf) y [README.md](../README.md)) y especificaciones `001` y `002` completadas.
+- Caso de estudio aprobado: Administración de Activos de una Bodega (Equipos, Herramientas, Infraestructura TI), conforme al ejercicio propuesto en la sección 7 de la guía académica ([Guia_Laboratorio_IA.pdf](../Guia_Laboratorio_IA.pdf)).
 
 ## 2. Mapa de evidencias
-- Tipo de proyecto observado: greenfield (aplicación en proceso de especificación/planificación).
-- Módulos y artefactos requeridos por la sección 7 de la guía ([Guia_Laboratorio_IA.pdf](../Guia_Laboratorio_IA.pdf)):
-  - Carpeta del proyecto con código fuente del backend y frontend.
-  - `PRD.md` revisado y aprobado por el equipo.
-  - Carpeta de mockups exportados desde Stitch (`mockups/stitch/` con capturas y HTMLs completados).
-  - `SPEC-TECNICA.md` con arquitectura, modelo de datos, API y plan de pruebas.
-  - `README.md` con requisitos, versiones, instrucciones de ejecución y configuración.
-  - Matriz de pruebas diligenciada con evidencias y resultados reales.
-- Herramientas y runtimes verificados en el host local:
-  - Java: JDK 17 (declarado en backend/pom.xml, compilado y ejecutado con Maven Wrapper).
-  - Node.js: v24.22.1 (`node -v`, código de salida 0).
-  - npm: 11.19.1 (`npm -v`, código de salida 0).
-  - Git: v2.51.0.windows.1 instalado (`git --version`, código de salida 0), pero no inicializado en la carpeta del proyecto (`fatal: not a git repository`).
-  - Maven: `mvn` no está presente en el PATH global; se requiere Maven Wrapper (`mvnw.cmd`) en el backend.
-- Convenciones observadas: Ecosistema Java (Maven) y TypeScript/React (Vite + Tailwind + shadcn/ui).
+- Tipo de proyecto observado: aplicación full-stack (`backend/` + `frontend/`) con entregables académicos completos:
+  - [PRD.md](../PRD.md) actualizado con edición manual y `DE_BAJA` movidos a *Fase Futura*.
+  - Carpeta de mockups exportados desde Stitch (`../mockups/stitch/`).
+  - [SPEC-TECNICA.md](../SPEC-TECNICA.md) v1.2 con arquitectura, modelo de datos, API REST, árbol real de componentes y plan de pruebas.
+  - [README.md](../README.md) con requisitos reales, diagramas de arquitectura, instrucciones, matriz de pruebas (`P01`–`P10`), evidencia REST en vivo y hallazgos de calidad/deuda técnica.
+  - [INFORME-LABORATORIO.pdf](../INFORME-LABORATORIO.pdf) con informe académico completo en PDF a nombre de Brahian Ospina, trazabilidad OmniSpec, capturas y diagramas Mermaid.
+- Herramientas, versiones y runtimes verificados en el host local:
+  - Java: `<java.version>17</java.version>` en `backend/pom.xml`, ejecutado sobre OpenJDK `25.0.4.1` Temurin con `Spring Boot 3.3.5` y Maven Wrapper (`backend/mvnw.cmd`).
+  - Node.js / npm: `v24.22.1` / `11.19.1`.
+  - Frontend (`frontend/package.json`): `react ^19.3.1`, `vite ^8.3.6`, `typescript ~7.0.2`, `tailwindcss ^3.4.19`, `oxlint ^1.90.0`.
+  - Git: `v2.51.0.windows.1` inicializado en la raíz (`master`, remoto `origin` autorizado por el usuario en `https://github.com/SODI1999/Laboratorio_IA.git`) con [.gitignore](../.gitignore).
+  - Maven: `mvn` no está presente en el `PATH` global; se requiere `backend/mvnw.cmd`.
 
 ## 3. Objetivos y decisiones
-- Propósito general: Desarrollar un prototipo web para la gestión integral de activos de una bodega (equipos de cómputo, herramientas especializadas e infraestructura TI), abarcando control de inventario físico, trazabilidad de estados (Disponible, Asignado, En Mantenimiento, De Baja), ubicación física en bodega, valorización económica y alertas de mantenimiento/obsolescencia.
-- Módulos funcionales del MVP (adaptados al caso de estudio):
-  1. Tablero de control de activos y valorización: KPIs ejecutivos (total activos, valorización económica total, distribución por estados, alertas de activos que requieren mantenimiento o tienen alta antigüedad >90/180 días).
-  2. Catálogo e inventario de activos: Ficha detallada de activo (código de placa/código interno, número de serie, nombre, categoría, marca/modelo, costo de adquisición, fecha de compra, ubicación en bodega y estado actual) con filtros reactivos por estado y categoría.
-  3. Gestión de ubicaciones / custodios y registro de mantenimientos: Trazabilidad de a quién o dónde está asignado el activo, y registro de intervenciones técnicas o proveedores de garantía asociados.
-- Exclusiones explícitas iniciales (fuera de alcance MVP):
-  - Integración con sistemas ERP corporativos externos o facturación electrónica.
-  - Módulos contables avanzados de depreciación fiscal multimoneda.
-  - Autenticación y control de roles en la versión 1 del prototipo.
-- Stack configurado y aprobado: Spring Boot + React (TypeScript/shadcn) + H2.
-- Estrategia de Frontend: Primitivas atómicas propias estilo shadcn/ui, tipado estricto TypeScript (`src/types/asset.ts`), directrices *Better UI* (Jaku) y página aislada **Component Showcase** (`ComponentShowcase.tsx`) para auditar componentes antes de la integración final.
-- Convención de documentación por módulo: Javadoc para backend Java; TSDoc para frontend React/TypeScript.
-- Convención de commits: Conventional Commits 1.0.0 (`feat`, `fix`, `refactor`, etc.) con descripción en español.
-- Límite de control de versiones: Solo local; sin repositorios remotos configurados ni publicación/despliegue autorizados.
-- Capacidades de la sesión: Preguntas interactivas (`ask_question`), búsqueda web (`search_web`), terminal (`run_command`), render/browser (`chrome-devtools-mcp`) y delegación (`invoke_subagent`, `swarm`) operativas en el host Antigravity.
-- Dirección de interfaz: Diseño limpio sin clichés de IA, enfocado en jerarquía tipográfica y cumplimiento de los 4 estados obligatorios (Loading, Empty, Error, Protected).
+- Propósito general: Prototipo web **BodegaCore** para gestión integral de activos de bodega (Equipos de Cómputo, Herramientas Especializadas, Infraestructura TI) con trazabilidad de estados (`DISPONIBLE`, `ASIGNADO`, `EN_MANTENIMIENTO`, `DE_BAJA`), ubicación física, valorización económica y alertas de mantenimiento/obsolescencia (>90 días).
+- Módulos funcionales del MVP:
+  1. **Tablero de Control** (`DashboardView.tsx`): KPIs ejecutivos, desglose por estado y sugerencias de acción desde `GET /api/dashboard`.
+  2. **Catálogo de Activos** (`CatalogView.tsx` + `AssetModal.tsx`): listado, búsqueda, filtros (`status`, `category`, `critical`, `olderThan90Days`), registro (`POST /api/assets`), asignación (`PUT /api/assets/{id}/assign`) y mantenimiento (`PUT /api/assets/{id}/maintenance`).
+  3. **Custodios y Ubicaciones** (`CustodiansView.tsx`): directorio real desde `GET /api/custodians`.
+- Exclusiones explícitas del MVP (Fase Futura): autenticación/roles, ERP/facturación, depreciación contable multimoneda, edición completa de activos y baja manual (`DE_BAJA`).
+- Estrategia de Frontend: primitivas propias estilo shadcn/ui, tipado estricto TypeScript sin anotaciones `: any`, 100 % de las vistas visibles consumiendo el backend Spring Boot (`ComponentShowcase.tsx` eliminado en `002-cierre-entregable-calidad`).
+- Convención de documentación y commits: Javadoc en backend, TSDoc en frontend, Conventional Commits en español; remoto autorizado por el usuario hacia `https://github.com/SODI1999/Laboratorio_IA.git`.
+- Capacidades de sesión registradas: `questions`, `web`, `terminal`, `render` (`chrome-devtools-mcp` sobre `http://localhost:5173`) y `delegation`.
 
 ## 4. Matriz de comandos
 | Comando | Directorio | Fuente / base | Prerrequisitos | Selección como check / motivo | Ejecución |
 | --- | --- | --- | --- | --- | --- |
-| `mvnw.cmd spring-boot:run` | `backend` | [Guia_Laboratorio_IA.pdf](../Guia_Laboratorio_IA.pdf) §6.6.1 | Java 17, Maven Wrapper | Servidor backend de desarrollo | EXECUTED |
-| `mvnw.cmd test` | `backend` | [CONSTITUTION.md](../CONSTITUTION.md) §Quality Gates | Java 17, Maven Wrapper | Suite de pruebas unitarias/integración (11/11 tests exitosos) | EXECUTED |
-| `npm run dev` | `frontend` | [Guia_Laboratorio_IA.pdf](../Guia_Laboratorio_IA.pdf) §6.6.2 | Node.js, dependencias instaladas | Servidor frontend de desarrollo (Vite port 5173) | EXECUTED |
-| `npm run build` | `frontend` | [CONSTITUTION.md](../CONSTITUTION.md) §Quality Gates | Node.js, TypeScript | Compilación TypeScript limpia | EXECUTED |
+| `node run-tests.mjs` | `.` | [run-tests.mjs](../run-tests.mjs) | Java / Temurin, Maven Wrapper | Check `backend-tests`: ejecuta `.\mvnw.cmd test` en `backend` (11/11 pruebas exitosas) | EXECUTED |
+| `npm run build` | `frontend` | [package.json](../frontend/package.json) | Node.js, dependencias instaladas | Check `frontend-build`: ejecuta `tsc -b && vite build` | EXECUTED |
+| `npm run lint` | `frontend` | [package.json](../frontend/package.json) | Node.js, `oxlint` | Check `frontend-lint`: ejecuta `oxlint` sobre 38 archivos | EXECUTED |
+| `.\mvnw.cmd spring-boot:run` | `backend` | [README.md](../README.md) | Java / Maven Wrapper | Servidor backend de desarrollo en puerto `8080` | EXECUTED |
+| `npm run dev` | `frontend` | [README.md](../README.md) | Node.js | Servidor frontend Vite en puerto `5173` | EXECUTED |
 
 ## 5. Línea base de calidad y requisitos
-- Evidencia de ejecución: Suite de 11 tests automatizados en backend (`mvnw.cmd test`) con 0 fallos, 0 errores. Compilación frontend `npm run build` con 0 errores de tipos.
-- Salud de la aplicación: APPLICATION_VALIDATED.
-- Requisitos de seguridad y datos: Base H2 en memoria con 20 registros ficticios de prueba representativos precargados por `DataInitializer.java`.
-- Requisitos de interfaz: Cumplimiento verificado de los 4 estados (Loading con CLS = 0, Empty con CTA, Error con reintento, Ideal con datos reales de H2) y componentes probados en navegador con Chrome DevTools.
-- Fallos observados: Ninguno. Todos los tests y vistas operan al 100%.
+- Backend: `node run-tests.mjs` pasa `11/11` tests (`Failures: 0, Errors: 0, Skipped: 0`). Aviso observado al arranque: `org.hibernate.dialect.H2Dialect` marcado como deprecado en `application.properties` (`spring.jpa.database-platform`).
+- Frontend: `npm run build` (`tsc -b && vite build`) exitoso sin errores; `npm run lint` (`oxlint`) con `0 warnings` y `0 errors` en `38` archivos y `0` anotaciones `: any`.
+- Interfaz renderizada y limitaciones observadas:
+  - Desktop `1280x800`: Tablero, Catálogo, estado Empty con CTA `Restablecer filtros`, Modal `Nuevo Activo` y Custodios operan con `0` errores de consola.
+  - Viewport estrecho (solicitado `375x812`, ancho mínimo aplicado por Chrome `500 px`): `TopNavbar` presenta desbordamiento horizontal (`scrollWidth: 571 > innerWidth: 500`).
+  - Accesibilidad/formularios en DevTools Issues: 12 campos sin `id`/`name` y 9 sin `<label>` asociado por `for`/`htmlFor`.
 
 ## 6. Trabajo existente, riesgos y validación pendiente
-- Línea base de trabajo existente: [PRD.md](../PRD.md), [SPEC-TECNICA.md](../SPEC-TECNICA.md), [design.md](../design.md), mockups en `mockups/stitch/`, especificación activa en `specs/001-gestion-activos-bodega/` y código completo en `backend/` y `frontend/`.
+- Línea base actual: especificaciones completadas `001-gestion-activos-bodega` y `002-cierre-entregable-calidad`.
 ### Conflictos entre fuentes
 <!-- omni:source-conflicts -->
 | Tema / Módulo | Fuente A y declaración | Fuente B y declaración | Consecuencia | Estado | Siguiente evidencia requerida |
 | --- | --- | --- | --- | --- | --- |
-| Versión de Java en Backend | [Guia_Laboratorio_IA.pdf](../Guia_Laboratorio_IA.pdf) (pág. 3): demostración con Java 17 | `backend/pom.xml`: `<java.version>17</java.version>` | Bytecode Java 17 ejecutado y validado en host | RESOLVED_BY_CONSTRAINT | Suite de 11 tests aprobada exitosamente |
-| Disponibilidad de Maven | [Guia_Laboratorio_IA.pdf](../Guia_Laboratorio_IA.pdf) (pág. 3): uso de Maven | Host Windows: `mvn` ausente en el PATH global | No se puede invocar Maven globalmente desde terminal | RESOLVED_BY_CONSTRAINT | El backend opera con Maven Wrapper (`mvnw.cmd`) |
+| Versión de Java en Backend | [Guia_Laboratorio_IA.pdf](../Guia_Laboratorio_IA.pdf) (pág. 3): demostración con Java 17 | `backend/pom.xml` (`17`) sobre host OpenJDK `25.0.4.1` | Bytecode Java 17 compilado y ejecutado sobre OpenJDK 25 | RESOLVED_BY_CONSTRAINT | Suite de 11 tests aprobada exitosamente |
+| Disponibilidad de Maven | [Guia_Laboratorio_IA.pdf](../Guia_Laboratorio_IA.pdf) (pág. 3): uso de Maven | Host Windows: `mvn` ausente en el `PATH` global | No se puede invocar Maven globalmente | RESOLVED_BY_CONSTRAINT | Backend ejecuta con `backend/mvnw.cmd` |
 
 ## 7. Siguiente acción
-- Proceder con `/omni-converge` para cerrar formalmente la especificación `001-gestion-activos-bodega`.
+- Proyecto listo para entrega académica o nuevas mejoras futuras vía `/omni-discuss` o `/omni-specify`.

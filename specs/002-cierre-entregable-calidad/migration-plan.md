@@ -69,8 +69,9 @@
 ## 3. Verificación y Rollback
 
 ### 3.1 Línea Base y Verificación de Regresión
-- **Backend**: `node run-tests.mjs` debe mantener `11` pruebas exitosas (`0` fallos).
-- **Frontend estático**: `npm run build` (`tsc -b && vite build`) y `npm run lint` (`oxlint`) deben terminar con código `0` y `0` warnings.
+- **Backend (`AC-03`)**: `node run-tests.mjs` (`.\mvnw.cmd test`) ejecuta las 5 clases de prueba existentes (`BodegacoreApplicationTests.java`, `AssetControllerIntegrationTest.java`, `DashboardControllerIntegrationTest.java`, `AssetRepositoryTest.java` y `AssetServiceTest.java`) en `backend/src/test/java/com/bodegacore/`, manteniendo `11/11` pruebas exitosas (`0` fallos).
+- **Frontend estático (`AC-01`, `AC-02`)**: sin suite Vitest/Jest en el proyecto; se verifica mediante los checks automatizados `frontend-build` (`npm run build`: `tsc -b && vite build`) y `frontend-lint` (`npm run lint`: `oxlint`) con código `0` y `0` warnings sobre los 38 archivos en `frontend/src/`.
+- **Documentación y Git local (`AC-04`, `AC-05`, `AC-06`, `AC-08`)**: verificados mediante el check automatizado `deliverables-check` (aserción de marcadores en `PRD.md`, `SPEC-TECNICA.md`, `README.md`, `.gitignore`, existencia de commit local y ausencia de remotos en `git remote`) más inspección directa.
 - **Verificación en vivo y visual (`AC-07`)**: arranque real de Spring Boot (`8080`) y Vite (`5173`), prueba REST directa, recorrido de Dashboard/Catálogo/Custodios/Estado vacío/Modal, prueba de reinicio de H2 (documentada) y revisión responsive en `1280x800` y `375x812`, generando [verification.md](verification.md) y `verification.json` al cierre.
 
 ### 3.2 Estrategia de Rollback / Recuperación

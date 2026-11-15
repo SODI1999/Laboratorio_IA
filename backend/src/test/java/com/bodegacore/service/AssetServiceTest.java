@@ -145,6 +145,8 @@ class AssetServiceTest {
             .findFirst()
             .orElseThrow();
 
+        assertThat(match.getAssetId()).isEqualTo(uninspectedAsset.getId());
+        assertThat(match.getAssetTag()).isEqualTo(uninspectedAsset.getAssetTag());
         assertThat(match.getDaysSinceInspection()).isGreaterThanOrEqualTo(115);
         assertThat(match.getReason()).contains("reglamentaria");
     }

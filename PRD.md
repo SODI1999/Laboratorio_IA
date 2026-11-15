@@ -1,7 +1,7 @@
 # Documento de Requerimientos de Producto (PRD)
 ## Sistema de Administración de Activos de Bodega (Equipos / Herramientas / TI)
 
-- **Asignatura**: Fundamentos de Sistemas de Información
+- **Asignatura**: Diseño del Sistema
 - **Proyecto**: Laboratorio de Construcción Asistida por IA
 - **Versión**: 1.0 (MVP)
 - **Fecha**: 11 de noviembre de 2026

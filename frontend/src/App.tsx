@@ -67,7 +67,7 @@ export function App() {
       {/* Footer */}
       <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
         <div className="mx-auto max-w-7xl px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>BodegaCore Asset Management • Fundamentos de Sistemas de Información</span>
+          <span>BodegaCore Asset Management • Diseño del Sistema</span>
           <span className="font-mono text-slate-400">Spring Boot 3.3.5 • React 19 • Tailwind CSS v3 • H2 in-memory</span>
         </div>
       </footer>

@@ -1,7 +1,7 @@
 # Especificación Técnica de Implementación (SPEC-TECNICA)
 ## Sistema de Administración de Activos de Bodega (Equipos / Herramientas / TI)
 
-- **Asignatura**: Fundamentos de Sistemas de Información
+- **Asignatura**: Diseño del Sistema
 - **Proyecto**: Laboratorio de Construcción Asistida por IA
 - **Versión**: 1.2 (Cierre MVP — Alineado con código real y Plan de Pruebas)
 - **Fecha**: 15 de noviembre de 2026

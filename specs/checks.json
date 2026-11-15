@@ -5,7 +5,29 @@
       "id": "backend-tests",
       "command": "node run-tests.mjs",
       "cwd": ".",
-      "timeoutMs": 300000
+      "timeoutMs": 300000,
+      "kind": "automated"
+    },
+    {
+      "id": "frontend-build",
+      "command": "npm run build",
+      "cwd": "frontend",
+      "timeoutMs": 120000,
+      "kind": "automated"
+    },
+    {
+      "id": "frontend-lint",
+      "command": "npm run lint",
+      "cwd": "frontend",
+      "timeoutMs": 120000,
+      "kind": "automated"
+    },
+    {
+      "id": "deliverables-check",
+      "command": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const assert=(c,m)=>{if(!c)throw new Error(m)};assert(!fs.existsSync('frontend/src/views/ComponentShowcase.tsx'),'Showcase exists');const prd=fs.readFileSync('PRD.md','utf8');assert(prd.includes('Fase Futura')&&prd.includes('DE_BAJA'),'PRD check');const spec=fs.readFileSync('SPEC-TECNICA.md','utf8');assert(spec.includes('19.3.1')&&spec.includes('/api/assets/recommendations')&&spec.includes('Plan de Pruebas')&&spec.includes('CustodiansView'),'SPEC check');const readme=fs.readFileSync('README.md','utf8');assert(readme.includes('npm run lint')&&readme.includes('P10')&&readme.includes('Hallazgos de Calidad'),'README check');const gi=fs.readFileSync('.gitignore','utf8');assert(gi.includes('backend/target')&&gi.includes('node_modules'),'.gitignore check');assert(execSync('git rev-parse --is-inside-work-tree',{encoding:'utf8'}).trim()==='true','git repo');assert(execSync('git remote',{encoding:'utf8'}).trim()==='','git remote not empty');assert(execSync('git log -1 --pretty=%s',{encoding:'utf8'}).trim().length>0,'git commit missing');console.log('ALL_DELIVERABLES_VERIFIED')\"",
+      "cwd": ".",
+      "timeoutMs": 30000,
+      "kind": "automated"
     }
   ]
 }

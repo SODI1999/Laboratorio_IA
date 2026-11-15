@@ -1,0 +1,341 @@
+{
+  "version": 4,
+  "id": "002",
+  "mode": "automated",
+  "passed": true,
+  "verifiedAt": "2026-11-15T07:46:06.344Z",
+  "fingerprint": "accae275e0b9d530c598df9260ea1435d1bd488e2846ea80477a822269c0426a",
+  "attestedFiles": 107,
+  "sourceChangedDuringVerification": false,
+  "changedDuringVerification": [],
+  "changedDuringVerificationCount": 0,
+  "reason": null,
+  "checks": [
+    {
+      "id": "backend-tests",
+      "command": "node run-tests.mjs",
+      "cwd": ".",
+      "timeoutMs": 300000,
+      "kind": "automated"
+    },
+    {
+      "id": "frontend-build",
+      "command": "npm run build",
+      "cwd": "frontend",
+      "timeoutMs": 120000,
+      "kind": "automated"
+    },
+    {
+      "id": "frontend-lint",
+      "command": "npm run lint",
+      "cwd": "frontend",
+      "timeoutMs": 120000,
+      "kind": "automated"
+    },
+    {
+      "id": "deliverables-check",
+      "command": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const assert=(c,m)=>{if(!c)throw new Error(m)};assert(!fs.existsSync('frontend/src/views/ComponentShowcase.tsx'),'Showcase exists');const prd=fs.readFileSync('PRD.md','utf8');assert(prd.includes('Fase Futura')&&prd.includes('DE_BAJA'),'PRD check');const spec=fs.readFileSync('SPEC-TECNICA.md','utf8');assert(spec.includes('19.3.1')&&spec.includes('/api/assets/recommendations')&&spec.includes('Plan de Pruebas')&&spec.includes('CustodiansView'),'SPEC check');const readme=fs.readFileSync('README.md','utf8');assert(readme.includes('npm run lint')&&readme.includes('P10')&&readme.includes('Hallazgos de Calidad'),'README check');const gi=fs.readFileSync('.gitignore','utf8');assert(gi.includes('backend/target')&&gi.includes('node_modules'),'.gitignore check');assert(execSync('git rev-parse --is-inside-work-tree',{encoding:'utf8'}).trim()==='true','git repo');assert(execSync('git remote',{encoding:'utf8'}).trim()==='','git remote not empty');assert(execSync('git log -1 --pretty=%s',{encoding:'utf8'}).trim().length>0,'git commit missing');console.log('ALL_DELIVERABLES_VERIFIED')\"",
+      "cwd": ".",
+      "timeoutMs": 30000,
+      "kind": "automated"
+    }
+  ],
+  "timeoutOverride": null,
+  "acceptance": {
+    "criteria": [
+      {
+        "id": "AC-01",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "frontend-build",
+          "frontend-lint"
+        ],
+        "exercises": "Compilacion TypeScript estricta (tsc -b), empaquetado de produccion Vite (vite build) y analisis estatico oxlint con 116 reglas sobre los 38 archivos de frontend/src, complementado con inspeccion DOM en Chrome DevTools.",
+        "limits": "No existe suite de pruebas unitarias/E2E en frontend; frontend-build y frontend-lint validan compilacion, tipos y reglas estaticas, mientras la ausencia visual de la pestaña Showcase se comprobo manualmente en Chrome DevTools.",
+        "checks": [
+          {
+            "checkId": "frontend-build",
+            "command": "npm run build",
+            "cwd": "frontend",
+            "status": "PASSED"
+          },
+          {
+            "checkId": "frontend-lint",
+            "command": "npm run lint",
+            "cwd": "frontend",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      },
+      {
+        "id": "AC-02",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "frontend-build",
+          "frontend-lint"
+        ],
+        "exercises": "Ejecucion real de oxlint (116 reglas, 38 archivos) y tsc -b && vite build sobre frontend/src.",
+        "limits": "oxlint y tsc verifican seguridad de tipos y reglas estaticas sin ejecutar pruebas unitarias de componentes React (no hay suite Vitest/Jest configurada).",
+        "checks": [
+          {
+            "checkId": "frontend-build",
+            "command": "npm run build",
+            "cwd": "frontend",
+            "status": "PASSED"
+          },
+          {
+            "checkId": "frontend-lint",
+            "command": "npm run lint",
+            "cwd": "frontend",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      },
+      {
+        "id": "AC-03",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "backend-tests"
+        ],
+        "exercises": "Contexto Spring Boot y las 11 pruebas reales JUnit/MockMvc/DataJpaTest sobre base H2 en memoria cargada con DataInitializer.",
+        "limits": "Ejecutado exclusivamente contra base de datos H2 en memoria; Hibernate reporta advertencia de deprecacion por org.hibernate.dialect.H2Dialect en application.properties.",
+        "checks": [
+          {
+            "checkId": "backend-tests",
+            "command": "node run-tests.mjs",
+            "cwd": ".",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      },
+      {
+        "id": "AC-04",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "deliverables-check"
+        ],
+        "exercises": "Lectura directa de PRD.md verificando presencia de 'Fase Futura' y 'DE_BAJA' en las exclusiones declaradas, contrastado contra la API REST implementada.",
+        "limits": "Valida alineacion de alcance textual en PRD.md respecto a los endpoints implementados; no cubre pruebas funcionales de endpoints futuros.",
+        "checks": [
+          {
+            "checkId": "deliverables-check",
+            "command": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const assert=(c,m)=>{if(!c)throw new Error(m)};assert(!fs.existsSync('frontend/src/views/ComponentShowcase.tsx'),'Showcase exists');const prd=fs.readFileSync('PRD.md','utf8');assert(prd.includes('Fase Futura')&&prd.includes('DE_BAJA'),'PRD check');const spec=fs.readFileSync('SPEC-TECNICA.md','utf8');assert(spec.includes('19.3.1')&&spec.includes('/api/assets/recommendations')&&spec.includes('Plan de Pruebas')&&spec.includes('CustodiansView'),'SPEC check');const readme=fs.readFileSync('README.md','utf8');assert(readme.includes('npm run lint')&&readme.includes('P10')&&readme.includes('Hallazgos de Calidad'),'README check');const gi=fs.readFileSync('.gitignore','utf8');assert(gi.includes('backend/target')&&gi.includes('node_modules'),'.gitignore check');assert(execSync('git rev-parse --is-inside-work-tree',{encoding:'utf8'}).trim()==='true','git repo');assert(execSync('git remote',{encoding:'utf8'}).trim()==='','git remote not empty');assert(execSync('git log -1 --pretty=%s',{encoding:'utf8'}).trim().length>0,'git commit missing');console.log('ALL_DELIVERABLES_VERIFIED')\"",
+            "cwd": ".",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      },
+      {
+        "id": "AC-05",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "deliverables-check"
+        ],
+        "exercises": "Verificacion automatica de secciones y marcadores clave en SPEC-TECNICA.md contrastados con backend/pom.xml, frontend/package.json y archivos en disco.",
+        "limits": "El check automatizado comprueba marcadores clave de SPEC-TECNICA.md; la coherencia integral del documento se valido mediante lectura directa.",
+        "checks": [
+          {
+            "checkId": "deliverables-check",
+            "command": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const assert=(c,m)=>{if(!c)throw new Error(m)};assert(!fs.existsSync('frontend/src/views/ComponentShowcase.tsx'),'Showcase exists');const prd=fs.readFileSync('PRD.md','utf8');assert(prd.includes('Fase Futura')&&prd.includes('DE_BAJA'),'PRD check');const spec=fs.readFileSync('SPEC-TECNICA.md','utf8');assert(spec.includes('19.3.1')&&spec.includes('/api/assets/recommendations')&&spec.includes('Plan de Pruebas')&&spec.includes('CustodiansView'),'SPEC check');const readme=fs.readFileSync('README.md','utf8');assert(readme.includes('npm run lint')&&readme.includes('P10')&&readme.includes('Hallazgos de Calidad'),'README check');const gi=fs.readFileSync('.gitignore','utf8');assert(gi.includes('backend/target')&&gi.includes('node_modules'),'.gitignore check');assert(execSync('git rev-parse --is-inside-work-tree',{encoding:'utf8'}).trim()==='true','git repo');assert(execSync('git remote',{encoding:'utf8'}).trim()==='','git remote not empty');assert(execSync('git log -1 --pretty=%s',{encoding:'utf8'}).trim().length>0,'git commit missing');console.log('ALL_DELIVERABLES_VERIFIED')\"",
+            "cwd": ".",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      },
+      {
+        "id": "AC-06",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "deliverables-check"
+        ],
+        "exercises": "Verificacion automatica de presencia de 'npm run lint', 'P10' y 'Hallazgos de Calidad' en README.md, junto con verificacion previa contra salidas reales de tests y REST.",
+        "limits": "La matriz P01-P10 combina verificacion automatizada JUnit (P01-P05, P10), llamadas REST en vivo (P06-P09) e inspeccion visual/UI.",
+        "checks": [
+          {
+            "checkId": "deliverables-check",
+            "command": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const assert=(c,m)=>{if(!c)throw new Error(m)};assert(!fs.existsSync('frontend/src/views/ComponentShowcase.tsx'),'Showcase exists');const prd=fs.readFileSync('PRD.md','utf8');assert(prd.includes('Fase Futura')&&prd.includes('DE_BAJA'),'PRD check');const spec=fs.readFileSync('SPEC-TECNICA.md','utf8');assert(spec.includes('19.3.1')&&spec.includes('/api/assets/recommendations')&&spec.includes('Plan de Pruebas')&&spec.includes('CustodiansView'),'SPEC check');const readme=fs.readFileSync('README.md','utf8');assert(readme.includes('npm run lint')&&readme.includes('P10')&&readme.includes('Hallazgos de Calidad'),'README check');const gi=fs.readFileSync('.gitignore','utf8');assert(gi.includes('backend/target')&&gi.includes('node_modules'),'.gitignore check');assert(execSync('git rev-parse --is-inside-work-tree',{encoding:'utf8'}).trim()==='true','git repo');assert(execSync('git remote',{encoding:'utf8'}).trim()==='','git remote not empty');assert(execSync('git log -1 --pretty=%s',{encoding:'utf8'}).trim().length>0,'git commit missing');console.log('ALL_DELIVERABLES_VERIFIED')\"",
+            "cwd": ".",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      },
+      {
+        "id": "AC-07",
+        "status": "passed",
+        "method": "manual",
+        "kind": "visual",
+        "observations": [
+          {
+            "actor": "agent",
+            "observer": "Antigravity (Gemini CLI/IDE Agent)",
+            "sessionId": "71dc019a-c3ab-45ff-8b24-49668855bdc4",
+            "surface": "http://localhost:5173/",
+            "environment": "Chrome DevTools MCP, Vite ^8.3.6 (puerto 5173), Spring Boot 3.3.5 + H2 en memoria (puerto 8080, 20 activos precargados)",
+            "steps": [
+              "Redimensionar ventana desktop a 1280x800 en http://localhost:5173/",
+              "Verificar botones de TopNavbar, contenido de Tablero Ejecutivo y metricas DOM (innerWidth, scrollWidth)",
+              "Listar mensajes de consola filtrados por error, warn e issue",
+              "Revisar las 6 capturas guardadas en evidence/ sobre la misma compilacion (Dashboard desktop, Catalogo, EmptyState NOEXISTE, Modal Nuevo Activo, Custodios y Tablero en viewport estrecho)"
+            ],
+            "expected": "Render completo de Tablero, Catalogo, EmptyState, Modal y Custodios sin Showcase ni errores de consola, con documentacion honesta de cualquier hallazgo de ancho estrecho o accesibilidad.",
+            "actual": "Desktop 1280x800 renderizo sin desbordamiento (innerWidth: 1280, scrollWidth: 1265), TopNavbar mostro unicamente ['Dashboard6', 'Catálogo', 'Custodios'], consola con 0 errores/warnings y 2 avisos issue de DevTools (12 campos sin id/name, 9 sin <label>); en viewport estrecho (solicitud 375x812, real 500x812) dashboard-mobile.png mostro scrollWidth 571 > 500 en TopNavbar.",
+            "result": "passed",
+            "observedAt": "2026-11-15T07:42:53.584Z",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "artifact": "evidence/dashboard-desktop.png"
+          }
+        ],
+        "limits": "En modo movil el navegador Chromium impuso un ancho minimo de ventana de 500 px al solicitar 375x812 y TopNavbar desborda horizontalmente (571 px vs 500 px); las 6 capturas PNG fueron tomadas minutos antes sobre la misma compilacion bf90bd7 y el render desktop sin errores de consola fue re-verificado tras session-record."
+      },
+      {
+        "id": "AC-08",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "deliverables-check"
+        ],
+        "exercises": "Comprobacion de .gitignore (backend/target y node_modules), git rev-parse --is-inside-work-tree === true, git remote vacio y existencia de commit en git log -1.",
+        "limits": "Al registrar la evidencia final de OmniSpec quedaran cambios posteriores en specs/ sin un nuevo commit, respetando la regla de no ejecutar commit ni push automatico durante converge.",
+        "checks": [
+          {
+            "checkId": "deliverables-check",
+            "command": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const assert=(c,m)=>{if(!c)throw new Error(m)};assert(!fs.existsSync('frontend/src/views/ComponentShowcase.tsx'),'Showcase exists');const prd=fs.readFileSync('PRD.md','utf8');assert(prd.includes('Fase Futura')&&prd.includes('DE_BAJA'),'PRD check');const spec=fs.readFileSync('SPEC-TECNICA.md','utf8');assert(spec.includes('19.3.1')&&spec.includes('/api/assets/recommendations')&&spec.includes('Plan de Pruebas')&&spec.includes('CustodiansView'),'SPEC check');const readme=fs.readFileSync('README.md','utf8');assert(readme.includes('npm run lint')&&readme.includes('P10')&&readme.includes('Hallazgos de Calidad'),'README check');const gi=fs.readFileSync('.gitignore','utf8');assert(gi.includes('backend/target')&&gi.includes('node_modules'),'.gitignore check');assert(execSync('git rev-parse --is-inside-work-tree',{encoding:'utf8'}).trim()==='true','git repo');assert(execSync('git remote',{encoding:'utf8'}).trim()==='','git remote not empty');assert(execSync('git log -1 --pretty=%s',{encoding:'utf8'}).trim().length>0,'git commit missing');console.log('ALL_DELIVERABLES_VERIFIED')\"",
+            "cwd": ".",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      }
+    ],
+    "scope": "DECLARED_EVIDENCE_WITH_EXECUTED_CHECK_BINDINGS",
+    "truthOfEvidence": "AGENT_OR_HUMAN_REVIEW_REQUIRED",
+    "automatedChecksPassed": true
+  },
+  "hollowTests": [],
+  "results": [
+    {
+      "command": "node run-tests.mjs",
+      "checkId": "backend-tests",
+      "cwd": "C:\\dev\\Laboratorio_IA",
+      "checkCwd": ".",
+      "kind": "automated",
+      "timeoutMs": 300000,
+      "processId": 8728,
+      "startedAt": "2026-11-15T07:45:47.001Z",
+      "finishedAt": "2026-11-15T07:46:03.349Z",
+      "durationMs": 16347,
+      "output": "9.jar)\r\nWARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning\r\nWARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information\r\nWARNING: Dynamic loading of agents will be disallowed by default in a future release\r\n[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.040 s -- in com.bodegacore.BodegacoreApplicationTests\r\n[INFO] Running com.bodegacore.controller.AssetControllerIntegrationTest\r\n2026-11-15T02:46:01.286-05:00  INFO 13520 --- [bodegacore] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.bodegacore.controller.AssetControllerIntegrationTest]: AssetControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.\r\n2026-11-15T02:46:01.317-05:00  INFO 13520 --- [bodegacore] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.bodegacore.BodegacoreApplication for test class com.bodegacore.controller.AssetControllerIntegrationTest\r\n\r\n  .   ____          _            __ _ _\n /\\\\ / ___'_ __ _ _(_)_ __  __ _ \\ \\ \\ \\\n( ( )\\___ | '_ | '_| | '_ \\/ _` | \\ \\ \\ \\\n \\\\/  ___)| |_)| | | | | || (_| |  ) ) ) )\n  '  |____| .__|_| |_|_| |_\\__, | / / / /\n =========|_|==============|___/=/_/_/_/\n\r\n :: Spring Boot ::                (v3.3.5)\r\n\r\n2026-11-15T02:46:01.374-05:00  INFO 13520 --- [bodegacore] [           main] c.b.c.AssetControllerIntegrationTest     : Starting AssetControllerIntegrationTest using Java 25.0.4.1 with PID 13520 (started by brahi in C:\\dev\\Laboratorio_IA\\backend)\r\n2026-11-15T02:46:01.374-05:00  INFO 13520 --- [bodegacore] [           main] c.b.c.AssetControllerIntegrationTest     : No active profile set, falling back to 1 default profile: \"default\"\r\n2026-11-15T02:46:01.624-05:00  INFO 13520 --- [bodegacore] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.\r\n2026-11-15T02:46:01.647-05:00  INFO 13520 --- [bodegacore] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 2 JPA repository interfaces.\r\n2026-11-15T02:46:01.765-05:00  INFO 13520 --- [bodegacore] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]\r\n2026-11-15T02:46:01.771-05:00  INFO 13520 --- [bodegacore] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled\r\n2026-11-15T02:46:01.788-05:00  INFO 13520 --- [bodegacore] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer\r\n2026-11-15T02:46:01.791-05:00  INFO 13520 --- [bodegacore] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...\r\n2026-11-15T02:46:01.793-05:00  INFO 13520 --- [bodegacore] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:bodegadb user=SA\r\n2026-11-15T02:46:01.793-05:00  INFO 13520 --- [bodegacore] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.\r\n2026-11-15T02:46:01.794-05:00  WARN 13520 --- [bodegacore] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)\r\n2026-11-15T02:46:01.901-05:00  INFO 13520 --- [bodegacore] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)\r\n2026-11-15T02:46:01.910-05:00  INFO 13520 --- [bodegacore] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'\r\n2026-11-15T02:46:02.020-05:00  WARN 13520 --- [bodegacore] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning\r\n2026-11-15T02:46:02.117-05:00  INFO 13520 --- [bodegacore] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:bodegadb'\r\n2026-11-15T02:46:02.150-05:00  INFO 13520 --- [bodegacore] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''\r\n2026-11-15T02:46:02.150-05:00  INFO 13520 --- [bodegacore] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''\r\n2026-11-15T02:46:02.151-05:00  INFO 13520 --- [bodegacore] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms\r\n2026-11-15T02:46:02.159-05:00  INFO 13520 --- [bodegacore] [           main] c.b.c.AssetControllerIntegrationTest     : Started AssetControllerIntegrationTest in 0.834 seconds (process running for 8.711)\r\n2026-11-15T02:46:02.165-05:00  INFO 13520 --- [bodegacore] [           main] com.bodegacore.config.DataInitializer    : Starting warehouse asset seed data preload into H2 database...\r\n2026-11-15T02:46:02.199-05:00  INFO 13520 --- [bodegacore] [           main] com.bodegacore.config.DataInitializer    : Successfully seeded exactly 20 assets across all 4 operational states.\r\n2026-11-15T02:46:02.514-05:00  INFO 13520 --- [bodegacore] [           main] com.bodegacore.service.AssetService      : [AUDIT_ASSET_CREATED] tag=ACT-INT-999, name=Estaci�n Soldadura Hakko FX-888D, cost=680000.00\r\n[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.290 s -- in com.bodegacore.controller.AssetControllerIntegrationTest\r\n[INFO] Running com.bodegacore.controller.DashboardControllerIntegrationTest\r\n2026-11-15T02:46:02.578-05:00  INFO 13520 --- [bodegacore] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.bodegacore.controller.DashboardControllerIntegrationTest]: DashboardControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.\r\n2026-11-15T02:46:02.582-05:00  INFO 13520 --- [bodegacore] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.bodegacore.BodegacoreApplication for test class com.bodegacore.controller.DashboardControllerIntegrationTest\r\n[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.069 s -- in com.bodegacore.controller.DashboardControllerIntegrationTest\r\n[INFO] Running com.bodegacore.repository.AssetRepositoryTest\r\n2026-11-15T02:46:02.649-05:00  INFO 13520 --- [bodegacore] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.bodegacore.repository.AssetRepositoryTest]: AssetRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.\r\n2026-11-15T02:46:02.674-05:00  INFO 13520 --- [bodegacore] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.bodegacore.BodegacoreApplication for test class com.bodegacore.repository.AssetRepositoryTest\r\n\r\n  .   ____          _            __ _ _\n /\\\\ / ___'_ __ _ _(_)_ __  __ _ \\ \\ \\ \\\n( ( )\\___ | '_ | '_| | '_ \\/ _` | \\ \\ \\ \\\n \\\\/  ___)| |_)| | | | | || (_| |  ) ) ) )\n  '  |____| .__|_| |_|_| |_\\__, | / / / /\n =========|_|==============|___/=/_/_/_/\n\r\n :: Spring Boot ::                (v3.3.5)\r\n\r\n2026-11-15T02:46:02.708-05:00  INFO 13520 --- [bodegacore] [           main] c.b.repository.AssetRepositoryTest       : Starting AssetRepositoryTest using Java 25.0.4.1 with PID 13520 (started by brahi in C:\\dev\\Laboratorio_IA\\backend)\r\n2026-11-15T02:46:02.708-05:00  INFO 13520 --- [bodegacore] [           main] c.b.repository.AssetRepositoryTest       : No active profile set, falling back to 1 default profile: \"default\"\r\n2026-11-15T02:46:02.794-05:00  INFO 13520 --- [bodegacore] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.\r\n2026-11-15T02:46:02.811-05:00  INFO 13520 --- [bodegacore] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 2 JPA repository interfaces.\r\n2026-11-15T02:46:02.823-05:00  INFO 13520 --- [bodegacore] [           main] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version\r\n2026-11-15T02:46:02.847-05:00  INFO 13520 --- [bodegacore] [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:c326ffb9-3968-4c0e-8600-68722404e51b;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'\r\n2026-11-15T02:46:02.873-05:00  INFO 13520 --- [bodegacore] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]\r\n2026-11-15T02:46:02.878-05:00  INFO 13520 --- [bodegacore] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled\r\n2026-11-15T02:46:02.888-05:00  INFO 13520 --- [bodegacore] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer\r\n2026-11-15T02:46:02.891-05:00  WARN 13520 --- [bodegacore] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)\r\n2026-11-15T02:46:02.980-05:00  INFO 13520 --- [bodegacore] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)\r\nHibernate: \r\n    drop table if exists assets cascade \r\nHibernate: \r\n    drop table if exists custodians cascade \r\nHibernate: \r\n    create table assets (\r\n        acquisition_cost numeric(12,2) not null,\r\n        last_inspection_date date not null,\r\n        purchase_date date not null,\r\n        custodian_id bigint,\r\n        id bigint generated by default as identity,\r\n        asset_tag varchar(255) not null unique,\r\n        brand varchar(255) not null,\r\n        maintenance_reason varchar(255),\r\n        model varchar(255) not null,\r\n        name varchar(255) not null,\r\n        serial_number varchar(255) not null,\r\n        service_provider varchar(255),\r\n        warehouse_location varchar(255) not null,\r\n        category enum ('COMPUTO','HERRAMIENTAS','MAQUINARIA_LIVIANA','REDES_TI') not null,\r\n        status enum ('ASIGNADO','DE_BAJA','DISPONIBLE','EN_MANTENIMIENTO') not null,\r\n        primary key (id)\r\n    )\r\nHibernate: \r\n    create table custodians (\r\n        id bigint generated by default as identity,\r\n        department varchar(255) not null,\r\n        email varchar(255) not null,\r\n        full_name varchar(255) not null,\r\n        primary key (id)\r\n    )\r\nHibernate: \r\n    alter table if exists assets \r\n       add constraint FKoitcj9pf3dmxa0qplesk403ty \r\n       foreign key (custodian_id) \r\n       references custodians\r\n2026-11-15T02:46:02.986-05:00  INFO 13520 --- [bodegacore] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'\r\n2026-11-15T02:46:03.050-05:00  INFO 13520 --- [bodegacore] [           main] c.b.repository.AssetRepositoryTest       : Started AssetRepositoryTest in 0.372 seconds (process running for 9.601)\r\nHibernate: \r\n    insert \r\n    into\r\n        assets\r\n        (acquisition_cost, asset_tag, brand, category, custodian_id, last_inspection_date, maintenance_reason, model, name, purchase_date, serial_number, service_provider, status, warehouse_location, id) \r\n    values\r\n        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)\r\nHibernate: \r\n    insert \r\n    into\r\n        assets\r\n        (acquisition_cost, asset_tag, brand, category, custodian_id, last_inspection_date, maintenance_reason, model, name, purchase_date, serial_number, service_provider, status, warehouse_location, id) \r\n    values\r\n        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)\r\n2026-11-15T02:46:03.108-05:00  WARN 13520 --- [bodegacore] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 23505, SQLState: 23505\r\n2026-11-15T02:46:03.108-05:00 ERROR 13520 --- [bodegacore] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Violaci�n de indice de Unicidad � Clave primaria: \"PUBLIC.CONSTRAINT_INDEX_7 ON PUBLIC.ASSETS(ASSET_TAG NULLS FIRST) VALUES ( /* 1 */ 'ACT-TEST-001' )\"\nUnique index or primary key violation: \"PUBLIC.CONSTRAINT_INDEX_7 ON PUBLIC.ASSETS(ASSET_TAG NULLS FIRST) VALUES ( /* 1 */ 'ACT-TEST-001' )\"; SQL statement:\ninsert into assets (acquisition_cost,asset_tag,brand,category,custodian_id,last_inspection_date,maintenance_reason,model,name,purchase_date,serial_number,service_provider,status,warehouse_location,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,default) [23505-224]\r\nHibernate: \r\n    insert \r\n    into\r\n        assets\r\n        (acquisition_cost, asset_tag, brand, category, custodian_id, last_inspection_date, maintenance_reason, model, name, purchase_date, serial_number, service_provider, status, warehouse_location, id) \r\n    values\r\n        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)\r\nHibernate: \r\n    insert \r\n    into\r\n        assets\r\n        (acquisition_cost, asset_tag, brand, category, custodian_id, last_inspection_date, maintenance_reason, model, name, purchase_date, serial_number, service_provider, status, warehouse_location, id) \r\n    values\r\n        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)\r\nHibernate: \r\n    select\r\n        a1_0.id,\r\n        a1_0.acquisition_cost,\r\n        a1_0.asset_tag,\r\n        a1_0.brand,\r\n        a1_0.category,\r\n        a1_0.custodian_id,\r\n        a1_0.last_inspection_date,\r\n        a1_0.maintenance_reason,\r\n        a1_0.model,\r\n        a1_0.name,\r\n        a1_0.purchase_date,\r\n        a1_0.serial_number,\r\n        a1_0.service_provider,\r\n        a1_0.status,\r\n        a1_0.warehouse_location \r\n    from\r\n        assets a1_0 \r\n    where\r\n        a1_0.last_inspection_date<?\r\n[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.500 s -- in com.bodegacore.repository.AssetRepositoryTest\r\n[INFO] Running com.bodegacore.service.AssetServiceTest\r\n2026-11-15T02:46:03.150-05:00  INFO 13520 --- [bodegacore] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.bodegacore.service.AssetServiceTest]: AssetServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.\r\n2026-11-15T02:46:03.160-05:00  INFO 13520 --- [bodegacore] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.bodegacore.BodegacoreApplication for test class com.bodegacore.service.AssetServiceTest\r\n2026-11-15T02:46:03.213-05:00  INFO 13520 --- [bodegacore] [           main] com.bodegacore.service.AssetService      : [AUDIT_ASSET_ASSIGNED] tag=ACT-AVAIL-001, custodian=Ing. Carlos Mendoza\r\n[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.067 s -- in com.bodegacore.service.AssetServiceTest\r\n[INFO] \r\n[INFO] Results:\r\n[INFO] \r\n[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0\r\n[INFO] \r\n[INFO] ------------------------------------------------------------------------\r\n[INFO] BUILD SUCCESS\r\n[INFO] ------------------------------------------------------------------------\r\n[INFO] Total time:  13.872 s\r\n[INFO] Finished at: 2026-11-15T02:46:03-05:00\r\n[INFO] ------------------------------------------------------------------------\r\nAll backend tests passed successfully!\n",
+      "outputTruncated": true,
+      "outputBytes": 23185,
+      "outputTotalBytes": 23185,
+      "outputLimitExceeded": false,
+      "outputLimitBytes": 8388608,
+      "outputLog": "specs/.omni/verification-logs/46ac52ff-dcf0-4ed1-bb07-4473271961fe.log",
+      "timedOut": false,
+      "exitCode": 0,
+      "signal": null,
+      "errorType": null,
+      "outputLogHash": "b112ef579d41201539775985e240c8324a1ab69e29098a7902c491eadf3c27de",
+      "attestationSignature": "343fe78767dbca74bbcffa301cac9977394b944dbb39b9c7c91a4f57347bd0a4"
+    },
+    {
+      "command": "npm run build",
+      "checkId": "frontend-build",
+      "cwd": "C:\\dev\\Laboratorio_IA\\frontend",
+      "checkCwd": "frontend",
+      "kind": "automated",
+      "timeoutMs": 120000,
+      "processId": 21692,
+      "startedAt": "2026-11-15T07:46:03.353Z",
+      "finishedAt": "2026-11-15T07:46:05.605Z",
+      "durationMs": 2253,
+      "output": "\n> frontend@0.0.0 build\n> tsc -b && vite build\n\n\u001b[36mvite v8.3.8 \u001b[32mbuilding client environment for production...\u001b[36m\u001b[39m\ntransforming...\n✓ 2109 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.45 kB │ gzip:  0.29 kB\ndist/assets/index-CYDZPAS4.css   26.34 kB │ gzip:  5.62 kB\ndist/assets/index-C6UmLHNX.js   317.36 kB │ gzip: 93.98 kB\n\n\u001b[32m✓ built in 1.20s\u001b[39m\n",
+      "outputTruncated": false,
+      "outputBytes": 428,
+      "outputTotalBytes": 428,
+      "outputLimitExceeded": false,
+      "outputLimitBytes": 8388608,
+      "outputLog": "specs/.omni/verification-logs/eecfd8a1-9d18-4e0b-89ef-f00085d3a9f7.log",
+      "timedOut": false,
+      "exitCode": 0,
+      "signal": null,
+      "errorType": null,
+      "outputLogHash": "c81402fa33b2afa246bd00d03e227b80dded3eda84bcee5ce389e4ab3930748b",
+      "attestationSignature": "b348ef8273d66eed8b979e19e81d0aadc07bedc98f8d14f394d37da00007e654"
+    },
+    {
+      "command": "npm run lint",
+      "checkId": "frontend-lint",
+      "cwd": "C:\\dev\\Laboratorio_IA\\frontend",
+      "checkCwd": "frontend",
+      "kind": "automated",
+      "timeoutMs": 120000,
+      "processId": 23888,
+      "startedAt": "2026-11-15T07:46:05.608Z",
+      "finishedAt": "2026-11-15T07:46:06.001Z",
+      "durationMs": 393,
+      "output": "\n> frontend@0.0.0 lint\n> oxlint\n\nFound 0 warnings and 0 errors.\nFinished in 33ms on 38 files with 116 rules using 16 threads.\n",
+      "outputTruncated": false,
+      "outputBytes": 126,
+      "outputTotalBytes": 126,
+      "outputLimitExceeded": false,
+      "outputLimitBytes": 8388608,
+      "outputLog": "specs/.omni/verification-logs/faa0d932-fff8-4edb-b688-0693f705556e.log",
+      "timedOut": false,
+      "exitCode": 0,
+      "signal": null,
+      "errorType": null,
+      "outputLogHash": "722e94b01475ec168156e3f50776bc83c0a62feb25badbcb2bce0633b06fa42e",
+      "attestationSignature": "e7f4e28f7cdfd7fc895c297960dbfda8a56ff817e35462575b10192e2e52c1d8"
+    },
+    {
+      "command": "node -e \"const fs=require('fs'),{execSync}=require('child_process');const assert=(c,m)=>{if(!c)throw new Error(m)};assert(!fs.existsSync('frontend/src/views/ComponentShowcase.tsx'),'Showcase exists');const prd=fs.readFileSync('PRD.md','utf8');assert(prd.includes('Fase Futura')&&prd.includes('DE_BAJA'),'PRD check');const spec=fs.readFileSync('SPEC-TECNICA.md','utf8');assert(spec.includes('19.3.1')&&spec.includes('/api/assets/recommendations')&&spec.includes('Plan de Pruebas')&&spec.includes('CustodiansView'),'SPEC check');const readme=fs.readFileSync('README.md','utf8');assert(readme.includes('npm run lint')&&readme.includes('P10')&&readme.includes('Hallazgos de Calidad'),'README check');const gi=fs.readFileSync('.gitignore','utf8');assert(gi.includes('backend/target')&&gi.includes('node_modules'),'.gitignore check');assert(execSync('git rev-parse --is-inside-work-tree',{encoding:'utf8'}).trim()==='true','git repo');assert(execSync('git remote',{encoding:'utf8'}).trim()==='','git remote not empty');assert(execSync('git log -1 --pretty=%s',{encoding:'utf8'}).trim().length>0,'git commit missing');console.log('ALL_DELIVERABLES_VERIFIED')\"",
+      "checkId": "deliverables-check",
+      "cwd": "C:\\dev\\Laboratorio_IA",
+      "checkCwd": ".",
+      "kind": "automated",
+      "timeoutMs": 30000,
+      "processId": 4872,
+      "startedAt": "2026-11-15T07:46:06.004Z",
+      "finishedAt": "2026-11-15T07:46:06.266Z",
+      "durationMs": 262,
+      "output": "ALL_DELIVERABLES_VERIFIED\n",
+      "outputTruncated": false,
+      "outputBytes": 26,
+      "outputTotalBytes": 26,
+      "outputLimitExceeded": false,
+      "outputLimitBytes": 8388608,
+      "outputLog": "specs/.omni/verification-logs/05c02678-1263-4c3c-9d3d-484b84ac5c85.log",
+      "timedOut": false,
+      "exitCode": 0,
+      "signal": null,
+      "errorType": null,
+      "outputLogHash": "30e1cd2eb4bd15ce2ac0d9051115127205d0f34a316539befca7a54d4d8eaa20",
+      "attestationSignature": "080f54986a3df33cd64b82803d01bc8f3037609e768212068400308b9a188022"
+    }
+  ],
+  "attestationKeyId": "8084ac166611acb4",
+  "recordSignature": "0aa7980d0a53e3ca82c529e75b38f1b425231ae683caac2fda541cb99958c86f"
+}

@@ -4,58 +4,147 @@
     {
       "id": "AC-01",
       "kind": "functional",
-      "status": "pending",
-      "method": null,
-      "evidence": ""
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "frontend-build",
+        "frontend-lint"
+      ],
+      "tests": [
+        "frontend-build",
+        "frontend-lint"
+      ],
+      "evidence": "ComponentShowcase.tsx eliminado; Select-String en frontend/src devuelve 0 coincidencias de showcase; App.tsx y TopNavbar.tsx compilados y validados por checks frontend-build (tsc -b && vite build) y frontend-lint (oxlint 0 warnings/0 errors sobre 38 archivos); en navegador activo http://localhost:5173 TopNavbar muestra unicamente ['Dashboard6', 'Catálogo', 'Custodios'].",
+      "exercises": "Compilacion TypeScript estricta (tsc -b), empaquetado de produccion Vite (vite build) y analisis estatico oxlint con 116 reglas sobre los 38 archivos de frontend/src, complementado con inspeccion DOM en Chrome DevTools.",
+      "limits": "No existe suite de pruebas unitarias/E2E en frontend; frontend-build y frontend-lint validan compilacion, tipos y reglas estaticas, mientras la ausencia visual de la pestaña Showcase se comprobo manualmente en Chrome DevTools."
     },
     {
       "id": "AC-02",
       "kind": "functional",
-      "status": "pending",
-      "method": null,
-      "evidence": ""
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "frontend-build",
+        "frontend-lint"
+      ],
+      "tests": [
+        "frontend-build",
+        "frontend-lint"
+      ],
+      "evidence": "oxlint (check frontend-lint) reporto 0 warnings y 0 errors sobre 38 archivos tras refactorizar useEffect/inicializacion en DashboardView.tsx, CatalogView.tsx, CustodiansView.tsx y AssetModal.tsx; npm run build (check frontend-build) compilo sin errores y Select-String confirma 0 anotaciones ': any' en frontend/src/.",
+      "exercises": "Ejecucion real de oxlint (116 reglas, 38 archivos) y tsc -b && vite build sobre frontend/src.",
+      "limits": "oxlint y tsc verifican seguridad de tipos y reglas estaticas sin ejecutar pruebas unitarias de componentes React (no hay suite Vitest/Jest configurada)."
     },
     {
       "id": "AC-03",
       "kind": "functional",
-      "status": "pending",
-      "method": null,
-      "evidence": ""
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "backend-tests"
+      ],
+      "tests": [
+        "backend/src/test/java/com/bodegacore/BodegacoreApplicationTests.java",
+        "backend/src/test/java/com/bodegacore/controller/AssetControllerIntegrationTest.java",
+        "backend/src/test/java/com/bodegacore/controller/DashboardControllerIntegrationTest.java",
+        "backend/src/test/java/com/bodegacore/repository/AssetRepositoryTest.java",
+        "backend/src/test/java/com/bodegacore/service/AssetServiceTest.java"
+      ],
+      "evidence": "node run-tests.mjs ejecuto .\\mvnw.cmd test en backend/ con resultado Tests run: 11, Failures: 0, Errors: 0, Skipped: 0 (BUILD SUCCESS).",
+      "exercises": "Contexto Spring Boot y las 11 pruebas reales JUnit/MockMvc/DataJpaTest sobre base H2 en memoria cargada con DataInitializer.",
+      "limits": "Ejecutado exclusivamente contra base de datos H2 en memoria; Hibernate reporta advertencia de deprecacion por org.hibernate.dialect.H2Dialect en application.properties."
     },
     {
       "id": "AC-04",
       "kind": "functional",
-      "status": "pending",
-      "method": null,
-      "evidence": ""
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "deliverables-check"
+      ],
+      "tests": [
+        "deliverables-check"
+      ],
+      "evidence": "PRD.md actualizado trasladando la edicion de activos y la baja manual (DE_BAJA) a la seccion de Fuera del Alcance Inicial / Fase Futura; verificado por check deliverables-check y revision documental.",
+      "exercises": "Lectura directa de PRD.md verificando presencia de 'Fase Futura' y 'DE_BAJA' en las exclusiones declaradas, contrastado contra la API REST implementada.",
+      "limits": "Valida alineacion de alcance textual en PRD.md respecto a los endpoints implementados; no cubre pruebas funcionales de endpoints futuros."
     },
     {
       "id": "AC-05",
       "kind": "functional",
-      "status": "pending",
-      "method": null,
-      "evidence": ""
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "deliverables-check"
+      ],
+      "tests": [
+        "deliverables-check"
+      ],
+      "evidence": "SPEC-TECNICA.md actualizada a v1.2 con versiones verificadas (React ^19.3.1, Spring Boot 3.3.5, bytecode Java 17), endpoint GET /api/assets/recommendations, arbol real con CustodiansView y seccion 7 Plan de Pruebas; verificado por deliverables-check.",
+      "exercises": "Verificacion automatica de secciones y marcadores clave en SPEC-TECNICA.md contrastados con backend/pom.xml, frontend/package.json y archivos en disco.",
+      "limits": "El check automatizado comprueba marcadores clave de SPEC-TECNICA.md; la coherencia integral del documento se valido mediante lectura directa."
     },
     {
       "id": "AC-06",
       "kind": "functional",
-      "status": "pending",
-      "method": null,
-      "evidence": ""
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "deliverables-check"
+      ],
+      "tests": [
+        "deliverables-check"
+      ],
+      "evidence": "README.md actualizado con comando 'npm run lint', matriz de pruebas completa P01-P10, resultados REST en vivo contra H2 reiniciado y seccion 5 Hallazgos de Calidad, Deuda Tecnica y Limitaciones; verificado por deliverables-check.",
+      "exercises": "Verificacion automatica de presencia de 'npm run lint', 'P10' y 'Hallazgos de Calidad' en README.md, junto con verificacion previa contra salidas reales de tests y REST.",
+      "limits": "La matriz P01-P10 combina verificacion automatizada JUnit (P01-P05, P10), llamadas REST en vivo (P06-P09) e inspeccion visual/UI."
     },
     {
       "id": "AC-07",
       "kind": "visual",
-      "status": "pending",
-      "method": null,
-      "evidence": ""
+      "status": "passed",
+      "method": "manual",
+      "evidence": "Interfaz renderizada verificada en http://localhost:5173 conectado al backend Spring Boot en http://localhost:8080 (20 activos precargados, 4 custodios, 6 recomendaciones P06): 0 errores o warnings en consola JavaScript; capturas de Tablero desktop, Catalogo, EmptyState, Modal Nuevo Activo, Custodios y Tablero movil guardadas en specs/002-cierre-entregable-calidad/evidence/. Limitaciones observadas: TopNavbar presenta desbordamiento horizontal en viewport estrecho (scrollWidth 571 > innerWidth 500) y DevTools Issues reporta 12 campos sin id/name y 9 sin <label>.",
+      "limits": "En modo movil el navegador Chromium impuso un ancho minimo de ventana de 500 px al solicitar 375x812 y TopNavbar desborda horizontalmente (571 px vs 500 px); las 6 capturas PNG fueron tomadas minutos antes sobre la misma compilacion bf90bd7 y el render desktop sin errores de consola fue re-verificado tras session-record.",
+      "observations": [
+        {
+          "actor": "agent",
+          "observer": "Antigravity (Gemini CLI/IDE Agent)",
+          "sessionId": "71dc019a-c3ab-45ff-8b24-49668855bdc4",
+          "surface": "http://localhost:5173/",
+          "environment": "Chrome DevTools MCP, Vite ^8.3.6 (puerto 5173), Spring Boot 3.3.5 + H2 en memoria (puerto 8080, 20 activos precargados)",
+          "steps": [
+            "Redimensionar ventana desktop a 1280x800 en http://localhost:5173/",
+            "Verificar botones de TopNavbar, contenido de Tablero Ejecutivo y metricas DOM (innerWidth, scrollWidth)",
+            "Listar mensajes de consola filtrados por error, warn e issue",
+            "Revisar las 6 capturas guardadas en evidence/ sobre la misma compilacion (Dashboard desktop, Catalogo, EmptyState NOEXISTE, Modal Nuevo Activo, Custodios y Tablero en viewport estrecho)"
+          ],
+          "expected": "Render completo de Tablero, Catalogo, EmptyState, Modal y Custodios sin Showcase ni errores de consola, con documentacion honesta de cualquier hallazgo de ancho estrecho o accesibilidad.",
+          "actual": "Desktop 1280x800 renderizo sin desbordamiento (innerWidth: 1280, scrollWidth: 1265), TopNavbar mostro unicamente ['Dashboard6', 'Catálogo', 'Custodios'], consola con 0 errores/warnings y 2 avisos issue de DevTools (12 campos sin id/name, 9 sin <label>); en viewport estrecho (solicitud 375x812, real 500x812) dashboard-mobile.png mostro scrollWidth 571 > 500 en TopNavbar.",
+          "result": "passed",
+          "observedAt": "2026-11-15T07:42:53.584Z",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "artifact": "evidence/dashboard-desktop.png"
+        }
+      ]
     },
     {
       "id": "AC-08",
       "kind": "functional",
-      "status": "pending",
-      "method": null,
-      "evidence": ""
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "deliverables-check"
+      ],
+      "tests": [
+        "deliverables-check"
+      ],
+      "evidence": "Repositorio Git local inicializado en raiz con .gitignore y commit inicial bf90bd7 ('feat: implementa BodegaCore MVP con limpieza técnica, documentación completa y evidencias'), sin remotos configurados (git remote vacio); verificado por check deliverables-check.",
+      "exercises": "Comprobacion de .gitignore (backend/target y node_modules), git rev-parse --is-inside-work-tree === true, git remote vacio y existencia de commit en git log -1.",
+      "limits": "Al registrar la evidencia final de OmniSpec quedaran cambios posteriores en specs/ sin un nuevo commit, respetando la regla de no ejecutar commit ni push automatico durante converge."
     }
   ]
 }
