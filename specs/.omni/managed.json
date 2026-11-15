@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "files": {
+    "specs/.gitignore": {
+      "hash": "5882fdecb0a909ace717e8183de327f257c744e4cb8825fb969857c898caac85",
+      "section": "hash"
+    },
+    "specs/commands/omni-init.md": {
+      "hash": "9c5008673485429326466cc0998680c70e5b9b1a38385c061f4d4caef086657a",
+      "section": false
+    }
+  }
+}

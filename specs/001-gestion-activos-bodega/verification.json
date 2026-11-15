@@ -1,0 +1,306 @@
+{
+  "version": 4,
+  "id": "001",
+  "mode": "automated",
+  "passed": true,
+  "verifiedAt": "2026-11-11T06:07:59.105Z",
+  "fingerprint": "538f44381f32c20237c2e82742159c8be571b3463079fe1b14ff4fb5a90a9cfa",
+  "attestedFiles": 107,
+  "sourceChangedDuringVerification": false,
+  "changedDuringVerification": [],
+  "changedDuringVerificationCount": 0,
+  "reason": null,
+  "checks": [
+    {
+      "id": "backend-tests",
+      "command": "node run-tests.mjs",
+      "cwd": ".",
+      "timeoutMs": 300000,
+      "kind": "automated"
+    }
+  ],
+  "timeoutOverride": null,
+  "acceptance": {
+    "criteria": [
+      {
+        "id": "AC-01",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "backend-tests"
+        ],
+        "exercises": "Validación de unicidad de assetTag a nivel entidad y repositorio.",
+        "checks": [
+          {
+            "checkId": "backend-tests",
+            "command": "node run-tests.mjs",
+            "cwd": ".",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      },
+      {
+        "id": "AC-02",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "backend-tests"
+        ],
+        "exercises": "Persistencia de un activo nuevo con payload completo en H2.",
+        "checks": [
+          {
+            "checkId": "backend-tests",
+            "command": "node run-tests.mjs",
+            "cwd": ".",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      },
+      {
+        "id": "AC-03",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "backend-tests"
+        ],
+        "exercises": "Rechazo de creación con tag duplicado o costo <= 0 retornando HTTP 400.",
+        "checks": [
+          {
+            "checkId": "backend-tests",
+            "command": "node run-tests.mjs",
+            "cwd": ".",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      },
+      {
+        "id": "AC-04",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "backend-tests"
+        ],
+        "exercises": "Validación de que activos en mantenimiento o baja no admiten asignación.",
+        "checks": [
+          {
+            "checkId": "backend-tests",
+            "command": "node run-tests.mjs",
+            "cwd": ".",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      },
+      {
+        "id": "AC-05",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "backend-tests"
+        ],
+        "exercises": "Cálculo agregado de KPIs y sugerencia automática de mantenimiento preventivo para activos >90 días (P01, P06).",
+        "checks": [
+          {
+            "checkId": "backend-tests",
+            "command": "node run-tests.mjs",
+            "cwd": ".",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      },
+      {
+        "id": "AC-06",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "backend-tests"
+        ],
+        "exercises": "Filtrado independiente por estado crítico/mantenimiento (P03) y por antigüedad >90 días (P04).",
+        "checks": [
+          {
+            "checkId": "backend-tests",
+            "command": "node run-tests.mjs",
+            "cwd": ".",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      },
+      {
+        "id": "AC-07",
+        "status": "passed",
+        "method": "automated",
+        "kind": "functional",
+        "checkIds": [
+          "backend-tests"
+        ],
+        "exercises": "Consulta de datos de custodio/responsable (P05) y transición de estado a ASIGNADO con fecha y custodio (P07).",
+        "checks": [
+          {
+            "checkId": "backend-tests",
+            "command": "node run-tests.mjs",
+            "cwd": ".",
+            "status": "PASSED"
+          }
+        ],
+        "execution": "PASSED"
+      },
+      {
+        "id": "AC-08",
+        "status": "passed",
+        "method": "manual",
+        "kind": "visual",
+        "observations": [
+          {
+            "actor": "agent",
+            "observer": "Antigravity",
+            "sessionId": "9ca97a84-dfc3-48c1-9e55-59d37b36a777",
+            "surface": "http://localhost:5173",
+            "environment": "Chrome DevTools MCP, Vite dev server, Spring Boot backend",
+            "steps": [
+              "Navegar a http://localhost:5173 en pestaña Component Showcase",
+              "Inspeccionar renderizado de SkeletonKPI y SkeletonTable bajo estado simulado de carga"
+            ],
+            "expected": "Skeletons con alturas h-28 y h-80 idénticas al contenedor final sin saltos de maquetación (CLS = 0)",
+            "actual": "Skeletons contextuales con animación pulse y dimensiones estables sin desplazamiento de layout",
+            "result": "passed",
+            "observedAt": "2026-11-11T06:04:05.000Z",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "artifact": "evidence/workbench.png"
+          }
+        ]
+      },
+      {
+        "id": "AC-09",
+        "status": "passed",
+        "method": "manual",
+        "kind": "visual",
+        "observations": [
+          {
+            "actor": "agent",
+            "observer": "Antigravity",
+            "sessionId": "9ca97a84-dfc3-48c1-9e55-59d37b36a777",
+            "surface": "http://localhost:5173",
+            "environment": "Chrome DevTools MCP, Vite dev server, Spring Boot backend",
+            "steps": [
+              "Navegar a http://localhost:5173/ en pestaña Catálogo de Activos",
+              "Filtrar por término inexistente 'NONEXISTENT-TAG'",
+              "Verificar componente de estado vacío"
+            ],
+            "expected": "Renderizado de EmptyState con mensaje explicativo y botón para limpiar filtros",
+            "actual": "EmptyState renderizado con mensaje 'No se encontraron activos' y botón 'Restablecer filtros'",
+            "result": "passed",
+            "observedAt": "2026-11-11T06:04:05.000Z",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "artifact": "evidence/empty-state.png"
+          }
+        ]
+      },
+      {
+        "id": "AC-10",
+        "status": "passed",
+        "method": "manual",
+        "kind": "interaction",
+        "observations": [
+          {
+            "actor": "agent",
+            "observer": "Antigravity",
+            "sessionId": "9ca97a84-dfc3-48c1-9e55-59d37b36a777",
+            "surface": "http://localhost:5173",
+            "environment": "Chrome DevTools MCP, Vite dev server, Spring Boot backend",
+            "steps": [
+              "Probar vista de simulación de errores en ComponentShowcase",
+              "Hacer clic en botón 'Reintentar conexión'"
+            ],
+            "expected": "Banner de error visible con estilo anti-cliché, mensaje legible y disparador de reintento",
+            "actual": "ErrorAlert renderizado correctamente con botón interactivo de reintento",
+            "result": "passed",
+            "observedAt": "2026-11-11T06:04:05.000Z",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "artifact": "evidence/dashboard.png"
+          }
+        ]
+      },
+      {
+        "id": "AC-11",
+        "status": "passed",
+        "method": "manual",
+        "kind": "accessibility",
+        "observations": [
+          {
+            "actor": "agent",
+            "observer": "Antigravity",
+            "sessionId": "9ca97a84-dfc3-48c1-9e55-59d37b36a777",
+            "surface": "http://localhost:5173",
+            "environment": "Chrome DevTools MCP, Vite dev server, Spring Boot backend",
+            "steps": [
+              "Inspeccionar contraste de colores de texto Slate-700/Slate-900 sobre fondo blanco y Slate-50",
+              "Comprobar atributos aria-label en botones de acción y aria-modal en diálogos"
+            ],
+            "expected": "Relación de contraste > 4.5:1 en textos estándar y navegación accesible por teclado",
+            "actual": "Contrastes superan 7:1 en textos principales; botones y modales cuentan con etiquetas de accesibilidad",
+            "result": "passed",
+            "observedAt": "2026-11-11T06:04:05.000Z",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "artifact": "evidence/catalogo.png"
+          }
+        ]
+      }
+    ],
+    "scope": "DECLARED_EVIDENCE_WITH_EXECUTED_CHECK_BINDINGS",
+    "truthOfEvidence": "AGENT_OR_HUMAN_REVIEW_REQUIRED",
+    "automatedChecksPassed": true
+  },
+  "hollowTests": [],
+  "results": [
+    {
+      "command": "node run-tests.mjs",
+      "checkId": "backend-tests",
+      "cwd": "C:\\dev\\Laboratorio_IA",
+      "checkCwd": ".",
+      "kind": "automated",
+      "timeoutMs": 300000,
+      "processId": 20936,
+      "startedAt": "2026-11-11T06:07:42.991Z",
+      "finishedAt": "2026-11-11T06:07:58.981Z",
+      "durationMs": 15989,
+      "output": "19.jar)\r\nWARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning\r\nWARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information\r\nWARNING: Dynamic loading of agents will be disallowed by default in a future release\r\n[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.134 s -- in com.bodegacore.BodegacoreApplicationTests\r\n[INFO] Running com.bodegacore.controller.AssetControllerIntegrationTest\r\n2026-11-11T01:07:56.636-05:00  INFO 17356 --- [bodegacore] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.bodegacore.controller.AssetControllerIntegrationTest]: AssetControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.\r\n2026-11-11T01:07:56.674-05:00  INFO 17356 --- [bodegacore] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.bodegacore.BodegacoreApplication for test class com.bodegacore.controller.AssetControllerIntegrationTest\r\n\r\n  .   ____          _            __ _ _\n /\\\\ / ___'_ __ _ _(_)_ __  __ _ \\ \\ \\ \\\n( ( )\\___ | '_ | '_| | '_ \\/ _` | \\ \\ \\ \\\n \\\\/  ___)| |_)| | | | | || (_| |  ) ) ) )\n  '  |____| .__|_| |_|_| |_\\__, | / / / /\n =========|_|==============|___/=/_/_/_/\n\r\n :: Spring Boot ::                (v3.3.5)\r\n\r\n2026-11-11T01:07:56.738-05:00  INFO 17356 --- [bodegacore] [           main] c.b.c.AssetControllerIntegrationTest     : Starting AssetControllerIntegrationTest using Java 25.0.4.1 with PID 17356 (started by brahi in C:\\dev\\Laboratorio_IA\\backend)\r\n2026-11-11T01:07:56.740-05:00  INFO 17356 --- [bodegacore] [           main] c.b.c.AssetControllerIntegrationTest     : No active profile set, falling back to 1 default profile: \"default\"\r\n2026-11-11T01:07:57.023-05:00  INFO 17356 --- [bodegacore] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.\r\n2026-11-11T01:07:57.048-05:00  INFO 17356 --- [bodegacore] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 2 JPA repository interfaces.\r\n2026-11-11T01:07:57.171-05:00  INFO 17356 --- [bodegacore] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]\r\n2026-11-11T01:07:57.176-05:00  INFO 17356 --- [bodegacore] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled\r\n2026-11-11T01:07:57.193-05:00  INFO 17356 --- [bodegacore] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer\r\n2026-11-11T01:07:57.196-05:00  INFO 17356 --- [bodegacore] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...\r\n2026-11-11T01:07:57.197-05:00  INFO 17356 --- [bodegacore] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:bodegadb user=SA\r\n2026-11-11T01:07:57.197-05:00  INFO 17356 --- [bodegacore] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.\r\n2026-11-11T01:07:57.197-05:00  WARN 17356 --- [bodegacore] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)\r\n2026-11-11T01:07:57.346-05:00  INFO 17356 --- [bodegacore] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)\r\n2026-11-11T01:07:57.360-05:00  INFO 17356 --- [bodegacore] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'\r\n2026-11-11T01:07:57.509-05:00  WARN 17356 --- [bodegacore] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning\r\n2026-11-11T01:07:57.614-05:00  INFO 17356 --- [bodegacore] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:bodegadb'\r\n2026-11-11T01:07:57.653-05:00  INFO 17356 --- [bodegacore] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''\r\n2026-11-11T01:07:57.653-05:00  INFO 17356 --- [bodegacore] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''\r\n2026-11-11T01:07:57.655-05:00  INFO 17356 --- [bodegacore] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms\r\n2026-11-11T01:07:57.662-05:00  INFO 17356 --- [bodegacore] [           main] c.b.c.AssetControllerIntegrationTest     : Started AssetControllerIntegrationTest in 0.98 seconds (process running for 8.919)\r\n2026-11-11T01:07:57.666-05:00  INFO 17356 --- [bodegacore] [           main] com.bodegacore.config.DataInitializer    : Starting warehouse asset seed data preload into H2 database...\r\n2026-11-11T01:07:57.697-05:00  INFO 17356 --- [bodegacore] [           main] com.bodegacore.config.DataInitializer    : Successfully seeded exactly 20 assets across all 4 operational states.\r\n2026-11-11T01:07:58.079-05:00  INFO 17356 --- [bodegacore] [           main] com.bodegacore.service.AssetService      : [AUDIT_ASSET_CREATED] tag=ACT-INT-999, name=Estaci�n Soldadura Hakko FX-888D, cost=680000.00\r\n[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.494 s -- in com.bodegacore.controller.AssetControllerIntegrationTest\r\n[INFO] Running com.bodegacore.controller.DashboardControllerIntegrationTest\r\n2026-11-11T01:07:58.129-05:00  INFO 17356 --- [bodegacore] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.bodegacore.controller.DashboardControllerIntegrationTest]: DashboardControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.\r\n2026-11-11T01:07:58.134-05:00  INFO 17356 --- [bodegacore] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.bodegacore.BodegacoreApplication for test class com.bodegacore.controller.DashboardControllerIntegrationTest\r\n[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.073 s -- in com.bodegacore.controller.DashboardControllerIntegrationTest\r\n[INFO] Running com.bodegacore.repository.AssetRepositoryTest\r\n2026-11-11T01:07:58.205-05:00  INFO 17356 --- [bodegacore] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.bodegacore.repository.AssetRepositoryTest]: AssetRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.\r\n2026-11-11T01:07:58.226-05:00  INFO 17356 --- [bodegacore] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.bodegacore.BodegacoreApplication for test class com.bodegacore.repository.AssetRepositoryTest\r\n\r\n  .   ____          _            __ _ _\n /\\\\ / ___'_ __ _ _(_)_ __  __ _ \\ \\ \\ \\\n( ( )\\___ | '_ | '_| | '_ \\/ _` | \\ \\ \\ \\\n \\\\/  ___)| |_)| | | | | || (_| |  ) ) ) )\n  '  |____| .__|_| |_|_| |_\\__, | / / / /\n =========|_|==============|___/=/_/_/_/\n\r\n :: Spring Boot ::                (v3.3.5)\r\n\r\n2026-11-11T01:07:58.259-05:00  INFO 17356 --- [bodegacore] [           main] c.b.repository.AssetRepositoryTest       : Starting AssetRepositoryTest using Java 25.0.4.1 with PID 17356 (started by brahi in C:\\dev\\Laboratorio_IA\\backend)\r\n2026-11-11T01:07:58.260-05:00  INFO 17356 --- [bodegacore] [           main] c.b.repository.AssetRepositoryTest       : No active profile set, falling back to 1 default profile: \"default\"\r\n2026-11-11T01:07:58.360-05:00  INFO 17356 --- [bodegacore] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.\r\n2026-11-11T01:07:58.378-05:00  INFO 17356 --- [bodegacore] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18 ms. Found 2 JPA repository interfaces.\r\n2026-11-11T01:07:58.393-05:00  INFO 17356 --- [bodegacore] [           main] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version\r\n2026-11-11T01:07:58.418-05:00  INFO 17356 --- [bodegacore] [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:941cd38f-9546-4418-9183-c9042193e068;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'\r\n2026-11-11T01:07:58.442-05:00  INFO 17356 --- [bodegacore] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]\r\n2026-11-11T01:07:58.445-05:00  INFO 17356 --- [bodegacore] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled\r\n2026-11-11T01:07:58.461-05:00  INFO 17356 --- [bodegacore] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer\r\n2026-11-11T01:07:58.464-05:00  WARN 17356 --- [bodegacore] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)\r\n2026-11-11T01:07:58.574-05:00  INFO 17356 --- [bodegacore] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)\r\nHibernate: \r\n    drop table if exists assets cascade \r\nHibernate: \r\n    drop table if exists custodians cascade \r\nHibernate: \r\n    create table assets (\r\n        acquisition_cost numeric(12,2) not null,\r\n        last_inspection_date date not null,\r\n        purchase_date date not null,\r\n        custodian_id bigint,\r\n        id bigint generated by default as identity,\r\n        asset_tag varchar(255) not null unique,\r\n        brand varchar(255) not null,\r\n        maintenance_reason varchar(255),\r\n        model varchar(255) not null,\r\n        name varchar(255) not null,\r\n        serial_number varchar(255) not null,\r\n        service_provider varchar(255),\r\n        warehouse_location varchar(255) not null,\r\n        category enum ('COMPUTO','HERRAMIENTAS','MAQUINARIA_LIVIANA','REDES_TI') not null,\r\n        status enum ('ASIGNADO','DE_BAJA','DISPONIBLE','EN_MANTENIMIENTO') not null,\r\n        primary key (id)\r\n    )\r\nHibernate: \r\n    create table custodians (\r\n        id bigint generated by default as identity,\r\n        department varchar(255) not null,\r\n        email varchar(255) not null,\r\n        full_name varchar(255) not null,\r\n        primary key (id)\r\n    )\r\nHibernate: \r\n    alter table if exists assets \r\n       add constraint FKoitcj9pf3dmxa0qplesk403ty \r\n       foreign key (custodian_id) \r\n       references custodians\r\n2026-11-11T01:07:58.582-05:00  INFO 17356 --- [bodegacore] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'\r\n2026-11-11T01:07:58.655-05:00  INFO 17356 --- [bodegacore] [           main] c.b.repository.AssetRepositoryTest       : Started AssetRepositoryTest in 0.425 seconds (process running for 9.913)\r\nHibernate: \r\n    insert \r\n    into\r\n        assets\r\n        (acquisition_cost, asset_tag, brand, category, custodian_id, last_inspection_date, maintenance_reason, model, name, purchase_date, serial_number, service_provider, status, warehouse_location, id) \r\n    values\r\n        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)\r\nHibernate: \r\n    insert \r\n    into\r\n        assets\r\n        (acquisition_cost, asset_tag, brand, category, custodian_id, last_inspection_date, maintenance_reason, model, name, purchase_date, serial_number, service_provider, status, warehouse_location, id) \r\n    values\r\n        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)\r\n2026-11-11T01:07:58.720-05:00  WARN 17356 --- [bodegacore] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 23505, SQLState: 23505\r\n2026-11-11T01:07:58.720-05:00 ERROR 17356 --- [bodegacore] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Violaci�n de indice de Unicidad � Clave primaria: \"PUBLIC.CONSTRAINT_INDEX_7 ON PUBLIC.ASSETS(ASSET_TAG NULLS FIRST) VALUES ( /* 1 */ 'ACT-TEST-001' )\"\nUnique index or primary key violation: \"PUBLIC.CONSTRAINT_INDEX_7 ON PUBLIC.ASSETS(ASSET_TAG NULLS FIRST) VALUES ( /* 1 */ 'ACT-TEST-001' )\"; SQL statement:\ninsert into assets (acquisition_cost,asset_tag,brand,category,custodian_id,last_inspection_date,maintenance_reason,model,name,purchase_date,serial_number,service_provider,status,warehouse_location,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,default) [23505-224]\r\nHibernate: \r\n    insert \r\n    into\r\n        assets\r\n        (acquisition_cost, asset_tag, brand, category, custodian_id, last_inspection_date, maintenance_reason, model, name, purchase_date, serial_number, service_provider, status, warehouse_location, id) \r\n    values\r\n        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)\r\nHibernate: \r\n    insert \r\n    into\r\n        assets\r\n        (acquisition_cost, asset_tag, brand, category, custodian_id, last_inspection_date, maintenance_reason, model, name, purchase_date, serial_number, service_provider, status, warehouse_location, id) \r\n    values\r\n        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)\r\nHibernate: \r\n    select\r\n        a1_0.id,\r\n        a1_0.acquisition_cost,\r\n        a1_0.asset_tag,\r\n        a1_0.brand,\r\n        a1_0.category,\r\n        a1_0.custodian_id,\r\n        a1_0.last_inspection_date,\r\n        a1_0.maintenance_reason,\r\n        a1_0.model,\r\n        a1_0.name,\r\n        a1_0.purchase_date,\r\n        a1_0.serial_number,\r\n        a1_0.service_provider,\r\n        a1_0.status,\r\n        a1_0.warehouse_location \r\n    from\r\n        assets a1_0 \r\n    where\r\n        a1_0.last_inspection_date<?\r\n[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.563 s -- in com.bodegacore.repository.AssetRepositoryTest\r\n[INFO] Running com.bodegacore.service.AssetServiceTest\r\n2026-11-11T01:07:58.769-05:00  INFO 17356 --- [bodegacore] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.bodegacore.service.AssetServiceTest]: AssetServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.\r\n2026-11-11T01:07:58.779-05:00  INFO 17356 --- [bodegacore] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.bodegacore.BodegacoreApplication for test class com.bodegacore.service.AssetServiceTest\r\n2026-11-11T01:07:58.840-05:00  INFO 17356 --- [bodegacore] [           main] com.bodegacore.service.AssetService      : [AUDIT_ASSET_ASSIGNED] tag=ACT-AVAIL-001, custodian=Ing. Carlos Mendoza\r\n[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.076 s -- in com.bodegacore.service.AssetServiceTest\r\n[INFO] \r\n[INFO] Results:\r\n[INFO] \r\n[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0\r\n[INFO] \r\n[INFO] ------------------------------------------------------------------------\r\n[INFO] BUILD SUCCESS\r\n[INFO] ------------------------------------------------------------------------\r\n[INFO] Total time:  13.667 s\r\n[INFO] Finished at: 2026-11-11T01:07:58-05:00\r\n[INFO] ------------------------------------------------------------------------\r\nAll backend tests passed successfully!\n",
+      "outputTruncated": true,
+      "outputBytes": 23183,
+      "outputTotalBytes": 23183,
+      "outputLimitExceeded": false,
+      "outputLimitBytes": 8388608,
+      "outputLog": "specs/.omni/verification-logs/10a63685-316c-4d16-a51f-df834ea1604a.log",
+      "timedOut": false,
+      "exitCode": 0,
+      "signal": null,
+      "errorType": null,
+      "outputLogHash": "01d7e464429d0c9832c0bc39e576832bdff391ef7903d5b85a06964621e016c5",
+      "attestationSignature": "d72d7e983125a55188fcb5c49a1b64b8c5bb3097f1954941d9ff63524f9e0aa3"
+    }
+  ],
+  "attestationKeyId": "8084ac166611acb4",
+  "recordSignature": "3db5745798bc8d5dcbc611baec7d9bde676f8d43c9e5e5c4c7191dd77379b839"
+}

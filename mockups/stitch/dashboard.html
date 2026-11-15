@@ -1,0 +1,679 @@
+﻿<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BodegaCore - Dashboard Ejecutivo</title>
+<!-- Fonts & Google Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-container": "#7c839b",
+            "primary-fixed-dim": "#bec6e0",
+            "on-secondary-fixed-variant": "#003ea8",
+            "on-secondary-container": "#1d4ed8",
+            "surface-dim": "#f1f5f9",
+            "on-surface-variant": "#475569",
+            "outline-variant": "#e2e8f0",
+            "surface-container-low": "#f2f4f6",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-surface": "#191c1e",
+            "on-tertiary-container": "#c76c00",
+            "secondary-fixed-dim": "#b4c5ff",
+            "on-error": "#ffffff",
+            "primary-container": "#1e293b",
+            "tertiary-container": "#2f1500",
+            "on-secondary": "#ffffff",
+            "surface-container": "#eceef0",
+            "primary-fixed": "#dae2fd",
+            "retired-text": "#64748b",
+            "inverse-on-surface": "#eff1f3",
+            "surface-container-lowest": "#ffffff",
+            "tertiary": "#d97706",
+            "retired-bg": "#f1f5f9",
+            "secondary-container": "#316bf3",
+            "warning-text": "#b45309",
+            "warning-bg": "#fef3c7",
+            "on-error-container": "#93000a",
+            "on-background": "#191c1e",
+            "error-container": "#ffdad6",
+            "tertiary-fixed-dim": "#ffb77d",
+            "background": "#f7f9fb",
+            "on-tertiary-fixed": "#2f1500",
+            "surface": "#f8fafc",
+            "error": "#dc2626",
+            "surface-bright": "#ffffff",
+            "on-tertiary-fixed-variant": "#6e3900",
+            "secondary-fixed": "#dbe1ff",
+            "surface-container-high": "#e6e8ea",
+            "on-primary": "#ffffff",
+            "tertiary-fixed": "#ffdcc3",
+            "on-tertiary": "#ffffff",
+            "inverse-surface": "#2d3133",
+            "surface-tint": "#565e74",
+            "on-primary-fixed": "#131b2e",
+            "success-bg": "#ecfdf5",
+            "inverse-primary": "#bec6e0",
+            "primary": "#0f172a",
+            "outline": "#cbd5e1",
+            "secondary": "#2563eb",
+            "surface-variant": "#e0e3e5",
+            "success-text": "#059669",
+            "on-secondary-fixed": "#00174b",
+            "surface-container-highest": "#cbd5e1"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xl": "2rem",
+            "margin": "1.5rem",
+            "gutter": "1.5rem",
+            "space-md": "1rem",
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "headline-xl": [
+              "Inter"
+            ],
+            "label-md": [
+              "Inter"
+            ],
+            "body-sm": [
+              "Inter"
+            ],
+            "body-lg": [
+              "Inter"
+            ],
+            "headline-md": [
+              "Inter"
+            ],
+            "body-md": [
+              "Inter"
+            ],
+            "headline-lg": [
+              "Inter"
+            ]
+          },
+          "fontSize": {
+            "headline-xl": [
+              "32px",
+              {
+                "lineHeight": "40px",
+                "letterSpacing": "-0.02em",
+                "fontWeight": "700"
+              }
+            ],
+            "label-md": [
+              "12px",
+              {
+                "lineHeight": "16px",
+                "letterSpacing": "0.04em",
+                "fontWeight": "600"
+              }
+            ],
+            "body-sm": [
+              "12px",
+              {
+                "lineHeight": "16px",
+                "fontWeight": "400"
+              }
+            ],
+            "body-lg": [
+              "16px",
+              {
+                "lineHeight": "24px",
+                "fontWeight": "400"
+              }
+            ],
+            "headline-md": [
+              "20px",
+              {
+                "lineHeight": "28px",
+                "fontWeight": "600"
+              }
+            ],
+            "body-md": [
+              "14px",
+              {
+                "lineHeight": "20px",
+                "fontWeight": "400"
+              }
+            ],
+            "headline-lg": [
+              "24px",
+              {
+                "lineHeight": "32px",
+                "letterSpacing": "-0.015em",
+                "fontWeight": "600"
+              }
+            ]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 20px;
+      vertical-align: middle;
+      display: inline-block;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component implementation according to JSON specs) -->
+<header class="w-full px-margin flex items-center justify-between h-16 bg-surface-bright border-b border-outline-variant sticky top-0 z-30">
+<div class="flex items-center space-x-6">
+<!-- Logo & Product Name -->
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded bg-primary flex items-center justify-center text-surface-bright shadow-sm">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+</div>
+<span class="text-headline-md font-headline-md font-bold text-primary tracking-tight">BodegaCore</span>
+</div>
+<!-- Active Warehouse Badge / Selector (trailing_primary_action) -->
+<div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 bg-surface-dim border border-outline-variant rounded text-on-surface-variant font-label-md text-label-md cursor-pointer hover:bg-surface-container-low transition-colors duration-150">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">warehouse</span>
+<span class="font-semibold text-primary">Bodega Central - Hub Norte</span>
+<span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center space-x-6 h-16">
+<!-- Dashboard (Active) -->
+<a class="border-b-2 border-primary text-primary font-semibold py-4 flex items-center text-body-md font-body-md h-full" href="#">
+          Dashboard
+        </a>
+<!-- Catálogo de Activos (Inactive) -->
+<a class="text-on-surface-variant hover:text-on-surface font-normal py-4 flex items-center text-body-md font-body-md h-full transition-colors duration-150" href="#">
+          Catálogo de Activos
+        </a>
+<!-- Mantenimiento (Inactive) -->
+<a class="text-on-surface-variant hover:text-on-surface font-normal py-4 flex items-center text-body-md font-body-md h-full transition-colors duration-150" href="#">
+          Mantenimiento
+        </a>
+<!-- Reportes (Inactive) -->
+<a class="text-on-surface-variant hover:text-on-surface font-normal py-4 flex items-center text-body-md font-body-md h-full transition-colors duration-150" href="#">
+          Reportes
+        </a>
+</nav>
+</div>
+<!-- Search Bar & Trailing Icon Actions -->
+<div class="flex items-center space-x-3">
+<!-- Search Input -->
+<div class="relative hidden sm:block w-64 lg:w-80">
+<span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">search</span>
+</span>
+<input class="w-full pl-9 pr-3 py-1.5 text-body-sm font-body-sm bg-surface-container-low border border-outline-variant rounded focus:outline-none focus:border-primary focus:bg-surface-bright transition-all" placeholder="Buscar por código ACT-XXX o serie..." type="text"/>
+</div>
+<!-- Trailing Icon Action: Notifications -->
+<button aria-label="Notificaciones" class="relative p-2 text-on-surface-variant hover:bg-surface-container-low rounded transition-colors duration-150 active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface-bright"></span>
+</button>
+<!-- Trailing Icon Action: Help -->
+<button aria-label="Ayuda" class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded transition-colors duration-150 active:scale-95">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-1"></div>
+<!-- Operator Profile Cluster -->
+<div class="flex items-center gap-2.5 pl-1">
+<img alt="Foto de perfil del operador" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="Close up professional portrait of a warehouse operations supervisor in an industrial facility wearing a crisp dark slate collar shirt with high precision equipment blurred in clean daylight background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDa4k-F-y0-2W6qcfkdiaqaAlral5pQxYkXpo_Qyh8wYzPJfFTk7yWf4H5gqjBBuJlxsDoLi3zj1B5Vk46IaAOC_H1e-Y6DUaRplp6-y4H8t7SeiQHRAn9dCCDior_iKIwsXOBYIBCrv1bsJz2JO5xRmRBKVb_YJuEoZqCWuuhBN7i91dzZ_leo9RbBXDb_y8TPxliKUxO9Zuw0tQ1vRkvpv9lCkLV3ltM6VeknodHFZxiDEimkAnYKdMl0YAvnF5lGaOFkxhEUHD7r"/>
+<div class="hidden xl:flex flex-col text-left">
+<span class="text-body-sm font-body-sm font-semibold text-primary leading-tight">M. Rodriguez</span>
+<span class="text-[10px] text-on-surface-variant font-label-md uppercase tracking-wider">Admin Inventario</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-margin py-space-lg flex flex-col space-y-space-lg">
+<!-- Header Section with Breadcrumbs & Action Toolbar -->
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-outline-variant pb-space-md">
+<div>
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant mb-1">
+<span>Operaciones Hub Norte</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-medium">Panel Patrimonial</span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-primary tracking-tight">Dashboard Ejecutivo</h1>
+<p class="text-body-md font-body-md text-on-surface-variant mt-0.5">
+          Vista global del estado patrimonial, disponibilidad operativa y alertas preventivas de activos.
+        </p>
+</div>
+<!-- Action Toolbar -->
+<div class="flex items-center flex-wrap gap-2.5">
+<!-- Export Ghost/Outline -->
+<button class="inline-flex items-center gap-1.5 px-3 py-2 border border-outline-variant bg-surface-bright hover:bg-surface-container-low text-primary text-body-md font-body-md font-medium rounded transition-colors duration-150 active:scale-95">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Exportar Informe</span>
+</button>
+<!-- Secondary Action -->
+<button class="inline-flex items-center gap-1.5 px-3 py-2 border border-outline bg-surface-bright hover:bg-surface-container-low text-primary text-body-md font-body-md font-medium rounded transition-colors duration-150 active:scale-95">
+<span class="material-symbols-outlined text-[18px]">view_list</span>
+<span>Consultar Catálogo</span>
+</button>
+<!-- Primary Action -->
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-primary hover:bg-primary-container text-surface-bright text-body-md font-body-md font-medium rounded transition-colors duration-150 shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>+ Nuevo Activo</span>
+</button>
+</div>
+</div>
+<!-- Executive KPI Grid (4 Columns) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- KPI 1: Total de Activos Registrados -->
+<div class="bg-surface-bright border border-outline-variant rounded p-space-md flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="text-label-md font-label-md uppercase tracking-wider text-on-surface-variant">Total de Activos Registrados</span>
+<div class="p-1.5 bg-surface-dim rounded text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">category</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="text-headline-xl font-headline-xl text-primary font-bold">142</div>
+<div class="mt-2 flex items-center justify-between">
+<span class="inline-flex items-center text-[11px] font-semibold text-success-text bg-success-bg px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px] mr-0.5">trending_up</span>
+              +8 este mes
+            </span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">100% inventariados</span>
+</div>
+</div>
+</div>
+<!-- KPI 2: Valorización Monetaria Total -->
+<div class="bg-surface-bright border border-outline-variant rounded p-space-md flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="text-label-md font-label-md uppercase tracking-wider text-on-surface-variant">Valorización Monetaria Total</span>
+<div class="p-1.5 bg-surface-dim rounded text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="text-headline-lg font-headline-lg lg:text-[22px] font-bold text-primary truncate" title="$184,500,000 COP">
+            $184,500,000 COP
+          </div>
+<div class="mt-2 flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span>Capital activo</span>
+<span class="text-on-surface font-medium">-3.2% dep. anual</span>
+</div>
+</div>
+</div>
+<!-- KPI 3: Tasa de Disponibilidad Operativa -->
+<div class="bg-surface-bright border border-outline-variant rounded p-space-md flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="text-label-md font-label-md uppercase tracking-wider text-on-surface-variant">Tasa de Disponibilidad</span>
+<div class="p-1.5 bg-surface-dim rounded text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="flex items-baseline gap-2">
+<span class="text-headline-xl font-headline-xl text-primary font-bold">74.2%</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">operatividad</span>
+</div>
+<div class="w-full bg-outline-variant h-1.5 rounded-full overflow-hidden mt-2">
+<div class="bg-secondary h-full rounded-full" style="width: 74.2%"></div>
+</div>
+<div class="mt-2 text-body-sm font-body-sm text-on-surface-variant">
+            65 equipos para despacho inmediato
+          </div>
+</div>
+</div>
+<!-- KPI 4: Alerta Activos Críticos (>90 días) -->
+<div class="bg-surface-bright border border-outline-variant rounded p-space-md flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="text-label-md font-label-md uppercase tracking-wider text-on-surface-variant">Activos Críticos (&gt;90d)</span>
+<div class="p-1.5 bg-error-container rounded text-error">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="flex items-baseline gap-2">
+<span class="text-headline-xl font-headline-xl text-error font-bold">12</span>
+<span class="text-body-md font-body-md font-medium text-primary">equipos</span>
+</div>
+<div class="mt-2 flex items-center justify-between">
+<span class="inline-flex items-center text-[11px] font-semibold text-warning-text bg-warning-bg px-1.5 py-0.5 rounded">
+              Requiere acción
+            </span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Taller o sin revisión</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Asymmetric Core Section (60% / 40%) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left Column: Inventory Distribution & Categorization (60% -> 7 Cols) -->
+<div class="lg:col-span-7 flex flex-col space-y-gutter">
+<!-- Card: Status Distribution -->
+<div class="bg-surface-bright border border-outline-variant rounded p-space-md">
+<div class="flex items-center justify-between border-b border-outline-variant pb-space-sm mb-space-md">
+<div>
+<h2 class="text-headline-md font-headline-md text-primary">Distribución del Inventario por Estado Operativo</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Monitoreo segmentado de asignaciones y disponibilidad actual</p>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant bg-surface-dim px-2 py-0.5 rounded">142 TOTAL</span>
+</div>
+<!-- Segmented Proportional Bar -->
+<div class="mb-space-md">
+<div class="w-full h-3 rounded flex overflow-hidden bg-surface-container gap-0.5">
+<div class="bg-[#059669]" style="width: 45.8%" title="Disponible: 45.8%"></div>
+<div class="bg-[#1d4ed8]" style="width: 31.7%" title="Asignado: 31.7%"></div>
+<div class="bg-[#b45309]" style="width: 12.7%" title="En Mantenimiento: 12.7%"></div>
+<div class="bg-[#64748b]" style="width: 9.8%" title="De Baja: 9.8%"></div>
+</div>
+</div>
+<!-- Status Legend & Metrics Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
+<!-- Disponible -->
+<div class="p-2.5 rounded border border-outline-variant bg-surface-container-low/40">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="w-2 h-2 rounded-full bg-[#059669]"></span>
+<span class="text-label-md font-label-md text-on-surface">DISPONIBLE</span>
+</div>
+<div class="text-headline-md font-headline-md text-primary font-bold">65</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">45.8% del total</div>
+</div>
+<!-- Asignado -->
+<div class="p-2.5 rounded border border-outline-variant bg-surface-container-low/40">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="w-2 h-2 rounded-full bg-[#1d4ed8]"></span>
+<span class="text-label-md font-label-md text-on-surface">ASIGNADO</span>
+</div>
+<div class="text-headline-md font-headline-md text-primary font-bold">45</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">31.7% del total</div>
+</div>
+<!-- En Mantenimiento -->
+<div class="p-2.5 rounded border border-outline-variant bg-surface-container-low/40">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="w-2 h-2 rounded-full bg-[#b45309]"></span>
+<span class="text-label-md font-label-md text-on-surface">MANTENIMIENTO</span>
+</div>
+<div class="text-headline-md font-headline-md text-primary font-bold">18</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">12.7% del total</div>
+</div>
+<!-- De Baja -->
+<div class="p-2.5 rounded border border-outline-variant bg-surface-container-low/40">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="w-2 h-2 rounded-full bg-[#64748b]"></span>
+<span class="text-label-md font-label-md text-on-surface">DE BAJA</span>
+</div>
+<div class="text-headline-md font-headline-md text-primary font-bold">14</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">9.8% del total</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-outline-variant flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-success-text">north_east</span>
+              Disponibilidad operativa incrementó <strong>+2.4%</strong> frente a la semana pasada
+            </span>
+<a class="text-secondary font-medium hover:underline text-body-sm font-body-sm" href="#">Ver histórico</a>
+</div>
+</div>
+<!-- Card: Category Breakdown Grid -->
+<div class="bg-surface-bright border border-outline-variant rounded p-space-md">
+<div class="flex items-center justify-between border-b border-outline-variant pb-space-sm mb-space-md">
+<div>
+<h2 class="text-headline-md font-headline-md text-primary">Distribución por Categorías Clave</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Asignación presupuestal y densidad de parque tecnológico</p>
+</div>
+<button class="p-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+<div class="space-y-4">
+<!-- Category 1: Cómputo -->
+<div class="border border-outline-variant p-3 rounded hover:bg-surface-dim/40 transition-colors">
+<div class="flex items-start justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<div class="p-1.5 bg-surface-dim rounded text-primary">
+<span class="material-symbols-outlined text-[18px]">laptop_mac</span>
+</div>
+<div>
+<h3 class="text-body-md font-body-md font-semibold text-primary">Cómputo (Laptops, Servidores, Workstations)</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">58 unidades operativas</p>
+</div>
+</div>
+<div class="text-right">
+<span class="text-body-md font-body-md font-bold text-primary">$98.2M COP</span>
+<p class="text-[11px] text-on-surface-variant">53.2% del capital</p>
+</div>
+</div>
+<div class="w-full bg-outline-variant h-1.5 rounded-full overflow-hidden mt-2">
+<div class="bg-primary h-full rounded-full" style="width: 53.2%"></div>
+</div>
+</div>
+<!-- Category 2: Herramientas Especializadas -->
+<div class="border border-outline-variant p-3 rounded hover:bg-surface-dim/40 transition-colors">
+<div class="flex items-start justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<div class="p-1.5 bg-surface-dim rounded text-primary">
+<span class="material-symbols-outlined text-[18px]">build</span>
+</div>
+<div>
+<h3 class="text-body-md font-body-md font-semibold text-primary">Herramientas Especializadas &amp; Diagnóstico</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">34 unidades operativas</p>
+</div>
+</div>
+<div class="text-right">
+<span class="text-body-md font-body-md font-bold text-primary">$28.5M COP</span>
+<p class="text-[11px] text-on-surface-variant">15.4% del capital</p>
+</div>
+</div>
+<div class="w-full bg-outline-variant h-1.5 rounded-full overflow-hidden mt-2">
+<div class="bg-primary h-full rounded-full" style="width: 15.4%"></div>
+</div>
+</div>
+<!-- Category 3: Infraestructura TI -->
+<div class="border border-outline-variant p-3 rounded hover:bg-surface-dim/40 transition-colors">
+<div class="flex items-start justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<div class="p-1.5 bg-surface-dim rounded text-primary">
+<span class="material-symbols-outlined text-[18px]">dns</span>
+</div>
+<div>
+<h3 class="text-body-md font-body-md font-semibold text-primary">Infraestructura TI (Switches, Routers, UPS)</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">32 unidades operativas</p>
+</div>
+</div>
+<div class="text-right">
+<span class="text-body-md font-body-md font-bold text-primary">$44.1M COP</span>
+<p class="text-[11px] text-on-surface-variant">23.9% del capital</p>
+</div>
+</div>
+<div class="w-full bg-outline-variant h-1.5 rounded-full overflow-hidden mt-2">
+<div class="bg-primary h-full rounded-full" style="width: 23.9%"></div>
+</div>
+</div>
+<!-- Category 4: Maquinaria Liviana -->
+<div class="border border-outline-variant p-3 rounded hover:bg-surface-dim/40 transition-colors">
+<div class="flex items-start justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<div class="p-1.5 bg-surface-dim rounded text-primary">
+<span class="material-symbols-outlined text-[18px]">precision_manufacturing</span>
+</div>
+<div>
+<h3 class="text-body-md font-body-md font-semibold text-primary">Maquinaria Liviana &amp; Equipos de Planta</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">18 unidades operativas</p>
+</div>
+</div>
+<div class="text-right">
+<span class="text-body-md font-body-md font-bold text-primary">$13.7M COP</span>
+<p class="text-[11px] text-on-surface-variant">7.5% del capital</p>
+</div>
+</div>
+<div class="w-full bg-outline-variant h-1.5 rounded-full overflow-hidden mt-2">
+<div class="bg-primary h-full rounded-full" style="width: 7.5%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Priority Attention & Urgent Actions (40% -> 5 Cols) -->
+<div class="lg:col-span-5 flex flex-col space-y-gutter">
+<!-- Attention Prioritaria Card -->
+<div class="bg-surface-bright border border-outline-variant border-t-4 border-t-tertiary rounded p-space-md">
+<div class="flex items-start justify-between border-b border-outline-variant pb-space-sm mb-space-md">
+<div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary text-[20px]">notification_important</span>
+<h2 class="text-headline-md font-headline-md text-primary">Atención Prioritaria</h2>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Activos &gt;90 días sin inspección técnica formal</p>
+</div>
+<span class="px-2 py-0.5 bg-warning-bg text-warning-text font-label-md text-label-md rounded font-semibold whitespace-nowrap">
+              3 Críticos
+            </span>
+</div>
+<!-- Structured Critical Items -->
+<div class="space-y-3">
+<!-- Item 1: Laptop Dell Precision -->
+<div class="p-3 border border-outline-variant rounded bg-surface hover:bg-surface-dim transition-colors flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="px-1.5 py-0.5 bg-primary text-surface-bright font-mono text-[11px] font-semibold rounded">ACT-104</span>
+<span class="text-body-sm font-body-sm font-semibold text-primary truncate max-w-[170px]" title="Laptop Dell Precision 5570">
+                    Dell Precision 5570
+                  </span>
+</div>
+<span class="text-[11px] font-semibold text-error bg-error-container/60 px-1.5 py-0.5 rounded">
+                  112 días
+                </span>
+</div>
+<div class="text-[11px] text-on-surface-variant flex items-center justify-between">
+<span>S/N: DP55-9821</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">location_on</span>
+                  Bodega Norte - Est. A2
+                </span>
+</div>
+<div class="pt-1.5 border-t border-outline-variant flex items-center justify-between">
+<span class="text-[11px] text-on-surface-variant">Últ. revisión: 14/11/2023</span>
+<button class="inline-flex items-center gap-1 text-[11px] font-semibold text-secondary hover:text-primary transition-colors">
+<span>Programar Revisión</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Item 2: Switch Cisco Catalyst -->
+<div class="p-3 border border-outline-variant rounded bg-surface hover:bg-surface-dim transition-colors flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="px-1.5 py-0.5 bg-primary text-surface-bright font-mono text-[11px] font-semibold rounded">ACT-078</span>
+<span class="text-body-sm font-body-sm font-semibold text-primary truncate max-w-[170px]" title="Switch Cisco Catalyst 9200L">
+                    Cisco Catalyst 9200L
+                  </span>
+</div>
+<span class="text-[11px] font-semibold text-warning-text bg-warning-bg px-1.5 py-0.5 rounded">
+                  98 días
+                </span>
+</div>
+<div class="text-[11px] text-on-surface-variant flex items-center justify-between">
+<span>S/N: CS92-3341</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">grid_view</span>
+                  Rack 04 - Datacenter Hub
+                </span>
+</div>
+<div class="pt-1.5 border-t border-outline-variant flex items-center justify-between">
+<span class="text-[11px] text-on-surface-variant">Últ. revisión: 28/11/2023</span>
+<button class="inline-flex items-center gap-1 text-[11px] font-semibold text-secondary hover:text-primary transition-colors">
+<span>Programar Revisión</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Item 3: Generador Fluke -->
+<div class="p-3 border border-outline-variant rounded bg-surface hover:bg-surface-dim transition-colors flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="px-1.5 py-0.5 bg-primary text-surface-bright font-mono text-[11px] font-semibold rounded">ACT-115</span>
+<span class="text-body-sm font-body-sm font-semibold text-primary truncate max-w-[170px]" title="Generador de Señal Fluke 754">
+                    Fluke 754 Calibrador
+                  </span>
+</div>
+<span class="text-[11px] font-semibold text-warning-text bg-warning-bg px-1.5 py-0.5 rounded">
+                  94 días
+                </span>
+</div>
+<div class="text-[11px] text-on-surface-variant flex items-center justify-between">
+<span>S/N: FK75-1002</span>
+<span class="flex items-center gap-1 text-tertiary font-medium">
+<span class="material-symbols-outlined text-[13px]">handyman</span>
+                  En taller externo (Lab Metrología)
+                </span>
+</div>
+<div class="pt-1.5 border-t border-outline-variant flex items-center justify-between">
+<span class="text-[11px] text-on-surface-variant">Envío: 02/12/2023</span>
+<button class="inline-flex items-center gap-1 text-[11px] font-semibold text-secondary hover:text-primary transition-colors">
+<span>Reclamar / Seguir</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Direct Action -->
+<div class="mt-space-md pt-space-sm border-t border-outline-variant">
+<a class="w-full inline-flex items-center justify-center gap-1.5 py-2 border border-outline bg-surface-dim hover:bg-surface-container text-primary font-medium text-body-sm font-body-sm rounded transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[16px]">filter_alt</span>
+<span>Filtrar 12 Activos en Catálogo</span>
+</a>
+</div>
+</div>
+<!-- Quick Summary / Protocol Card -->
+<div class="bg-surface-bright border border-outline-variant rounded p-space-md">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+<h3 class="text-body-md font-body-md font-semibold text-primary">Protocolo de Control y Cumplimiento</h3>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant leading-relaxed">
+            La política interna exige inspección semestral obligatoria para equipos TI e instrumental de diagnóstico. El incumplimiento inhabilita la asignación en nuevos frentes de trabajo.
+          </p>
+<div class="mt-3 flex items-center gap-3">
+<div class="flex-1 bg-surface-dim border border-outline-variant rounded p-2 text-center">
+<span class="block text-headline-md font-headline-md font-bold text-primary">91.5%</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">Cumplimiento SLA</span>
+</div>
+<div class="flex-1 bg-surface-dim border border-outline-variant rounded p-2 text-center">
+<span class="block text-headline-md font-headline-md font-bold text-success-text">0</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">Pérdidas Netas</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Discretionary Status Bar -->
+<footer class="w-full bg-surface-bright border-t border-outline-variant py-2.5 px-margin text-body-sm font-body-sm text-on-surface-variant flex flex-col sm:flex-row items-center justify-between gap-2 mt-auto">
+<div class="flex items-center gap-2">
+<span class="inline-block w-2 h-2 rounded-full bg-success-text animate-pulse"></span>
+<span>Bodega Central - Hub Norte: Nodo de Datos Operativo</span>
+<span class="text-outline">|</span>
+<span>Última sincronización: Hoy a las 10:45 AM - Datos consolidados en tiempo real</span>
+</div>
+<div class="flex items-center space-x-4 text-[12px]">
+<span class="text-on-surface-variant">BodegaCore Enterprise v4.8.2</span>
+<a class="text-secondary hover:underline" href="#">Soporte TI</a>
+</div>
+</footer>
+</body></html>

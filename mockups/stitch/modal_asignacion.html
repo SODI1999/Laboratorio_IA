@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BodegaCore - Catálogo de Activos</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration matching Design System Tokens -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "retired-text": "#64748b",
+            "surface-dim": "#d8dadc",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-primary-container": "#f8fafc",
+            "surface-container": "#f1f5f9",
+            "surface-container-low": "#f2f4f6",
+            "error": "#dc2626",
+            "on-primary": "#ffffff",
+            "inverse-primary": "#bec6e0",
+            "background": "#f7f9fb",
+            "on-primary-fixed": "#131b2e",
+            "surface-container-highest": "#e0e3e5",
+            "on-tertiary": "#ffffff",
+            "on-error-container": "#93000a",
+            "on-surface": "#191c1e",
+            "inverse-on-surface": "#eff1f3",
+            "surface-variant": "#e0e3e5",
+            "primary": "#0f172a",
+            "surface-container-lowest": "#ffffff",
+            "retired-bg": "#f1f5f9",
+            "on-tertiary-fixed-variant": "#6e3900",
+            "on-secondary-container": "#1d4ed8",
+            "on-tertiary-fixed": "#2f1500",
+            "secondary": "#2563eb",
+            "on-tertiary-container": "#c76c00",
+            "on-secondary": "#ffffff",
+            "on-error": "#ffffff",
+            "surface": "#f8fafc",
+            "surface-bright": "#ffffff",
+            "secondary-fixed": "#dbe1ff",
+            "outline-variant": "#c6c6cd",
+            "error-container": "#ffdad6",
+            "primary-container": "#131b2e",
+            "on-surface-variant": "#475569",
+            "warning-text": "#b45309",
+            "outline": "#cbd5e1",
+            "primary-fixed": "#dae2fd",
+            "secondary-container": "#eff6ff",
+            "surface-tint": "#565e74",
+            "secondary-fixed-dim": "#b4c5ff",
+            "on-background": "#191c1e",
+            "surface-container-high": "#e6e8ea",
+            "tertiary-fixed-dim": "#ffb77d",
+            "on-secondary-fixed-variant": "#003ea8",
+            "warning-bg": "#fef3c7",
+            "tertiary-container": "#fef3c7",
+            "primary-fixed-dim": "#bec6e0",
+            "on-secondary-fixed": "#00174b",
+            "success-bg": "#ecfdf5",
+            "tertiary": "#d97706",
+            "inverse-surface": "#2d3133",
+            "tertiary-fixed": "#ffdcc3",
+            "success-text": "#059669"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "margin": "1.5rem",
+            "space-md": "1rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-xl": ["Inter"],
+            "body-md": ["Inter"]
+          },
+          "fontSize": {
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="h-full bg-background text-on-surface antialiased overflow-hidden font-body-md text-body-md select-none">
+<!-- ========================================== -->
+<!-- 1. FONDO: VISTA COMPLETA DE BODEGACORE     -->
+<!-- ========================================== -->
+<div aria-hidden="true" class="h-full flex flex-col w-full filter blur-[1px] pointer-events-none aria-hidden">
+<!-- TopNavBar (Shared Component Anchor) -->
+<header class="w-full px-margin flex items-center justify-between h-16 bg-surface-bright dark:bg-primary-container border-b border-outline-variant dark:border-primary-container shrink-0 z-10">
+<!-- Left: Logo & Nav Links -->
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="inventory_2">inventory_2</span>
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-surface-bright tracking-tight">BodegaCore</span>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<!-- Inactive Link: Dashboard -->
+<a class="text-on-surface-variant dark:text-outline hover:text-on-surface dark:hover:text-surface-bright font-normal py-4 text-body-md font-body-md" href="#">
+            Dashboard
+          </a>
+<!-- Active Link: Catálogo de Activos -->
+<a class="border-b-2 border-primary dark:border-secondary text-primary dark:text-surface-bright font-semibold py-4 text-body-md font-body-md" href="#">
+            Catálogo de Activos
+          </a>
+<!-- Inactive Link: Mantenimiento -->
+<a class="text-on-surface-variant dark:text-outline hover:text-on-surface dark:hover:text-surface-bright font-normal py-4 text-body-md font-body-md" href="#">
+            Mantenimiento
+          </a>
+<!-- Inactive Link: Reportes -->
+<a class="text-on-surface-variant dark:text-outline hover:text-on-surface dark:hover:text-surface-bright font-normal py-4 text-body-md font-body-md" href="#">
+            Reportes
+          </a>
+</nav>
+</div>
+<!-- Right: Search, Hub Selector, Icons, Profile -->
+<div class="flex items-center gap-4">
+<!-- Search Bar -->
+<div class="relative w-64 hidden xl:block">
+<span class="material-symbols-outlined absolute left-3 top-2 text-outline-variant text-base" data-icon="search">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 text-body-sm font-body-sm bg-surface-container-low border border-outline rounded text-on-surface placeholder:text-on-surface-variant focus:outline-none" placeholder="Buscar por serie, modelo o ID..." type="text"/>
+</div>
+<!-- Trailing Primary Action: Sede -->
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-container border border-outline text-on-surface text-body-sm font-medium">
+<span class="material-symbols-outlined text-base text-on-surface-variant" data-icon="warehouse">warehouse</span>
+<span>Bodega Central - Hub Norte</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+<!-- Trailing Icon Actions -->
+<div class="flex items-center gap-1">
+<button class="p-2 text-on-surface-variant hover:text-on-surface rounded hover:bg-surface-container-low transition-colors duration-150">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface rounded hover:bg-surface-container-low transition-colors duration-150">
+<span class="material-symbols-outlined text-xl" data-icon="help">help</span>
+</button>
+</div>
+<div class="h-6 w-px bg-outline-variant mx-1"></div>
+<!-- Profile -->
+<div class="flex items-center gap-2">
+<img class="w-8 h-8 rounded-full border border-outline object-cover" data-alt="A portrait photograph of an industrial inventory operations manager wearing a navy high-durability work vest. The lighting is crisp, professional, and utilitarian in a high-tech modern warehouse distribution center. The visual style is sharp with high contrast, neutral tones, and technical precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaWG6HLRdYwzmRPMOUFpXQa7mBtkJAFF8BK5q--OE_-y_NwWW74uVOXaisYfhBARoL9Z7d8gNAKBCHq3fyx3uqN-JmZ6HBvzHpuWlsWReUhTzUPpfY3mFcQAIt-Nz-ibDg2KU9C8qvvN9P3sHc9b1GpJukhFMnmd86_Cji8jaGRdddybCVKCFZPTpQ3xCbnWZGyAig00JE2LrVvttYu_xFkUpPmt1yrIra6uIeUt3t78hLGiAlrYlkM8F1iC_TGwlgrTn3hncmltao"/>
+<div class="hidden 2xl:flex flex-col text-left">
+<span class="text-body-sm font-body-sm font-semibold text-primary leading-tight">M. Rodriguez</span>
+<span class="text-xs text-on-surface-variant leading-tight">Operador Senior</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Background (Catálogo View) -->
+<main class="flex-1 overflow-auto p-margin space-y-6">
+<!-- Metrics Overview Header -->
+<div class="grid grid-cols-4 gap-4">
+<div class="p-4 bg-surface-bright border border-outline rounded">
+<div class="text-body-sm font-body-sm text-on-surface-variant font-medium">Total Activos Registrados</div>
+<div class="text-headline-lg font-headline-lg text-primary mt-1">1,248</div>
+<div class="text-body-sm font-body-sm text-success-text mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span> +12 esta semana
+          </div>
+</div>
+<div class="p-4 bg-surface-bright border border-outline rounded">
+<div class="text-body-sm font-body-sm text-on-surface-variant font-medium">Disponibles en Bodega</div>
+<div class="text-headline-lg font-headline-lg text-primary mt-1">426</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-1">34.1% del inventario</div>
+</div>
+<div class="p-4 bg-surface-bright border border-outline rounded">
+<div class="text-body-sm font-body-sm text-on-surface-variant font-medium">Asignados / En Tránsito</div>
+<div class="text-headline-lg font-headline-lg text-secondary mt-1">738</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-1">59.2% en operación</div>
+</div>
+<div class="p-4 bg-surface-bright border border-outline rounded">
+<div class="text-body-sm font-body-sm text-on-surface-variant font-medium">Mantenimiento / Inspección</div>
+<div class="text-headline-lg font-headline-lg text-tertiary mt-1">84</div>
+<div class="text-body-sm font-body-sm text-warning-text mt-1">6 requieren revisión urgente</div>
+</div>
+</div>
+<!-- High Density Table Container -->
+<div class="bg-surface-bright border border-outline rounded overflow-hidden">
+<div class="px-4 py-3 border-b border-outline flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-primary font-semibold">Registros de Activos Físicos</h2>
+<div class="flex items-center gap-2">
+<span class="text-body-sm text-on-surface-variant">Filtrado por: Todos los centros</span>
+</div>
+</div>
+<table class="w-full text-left text-body-sm font-body-sm border-collapse">
+<thead class="bg-surface-container text-on-surface-variant font-medium border-b border-outline">
+<tr>
+<th class="py-2.5 px-4">Código Activo</th>
+<th class="py-2.5 px-4">Descripción del Equipo</th>
+<th class="py-2.5 px-4">Número de Serie</th>
+<th class="py-2.5 px-4">Categoría</th>
+<th class="py-2.5 px-4">Estado</th>
+<th class="py-2.5 px-4">Ubicación Actual</th>
+<th class="py-2.5 px-4 text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline">
+<tr class="bg-surface-bright">
+<td class="py-3 px-4 font-semibold text-primary">ACT-101</td>
+<td class="py-3 px-4">Zebra ZT411 Impresora Térmica</td>
+<td class="py-3 px-4 text-on-surface-variant">ZB-90218-X</td>
+<td class="py-3 px-4">Impresión Logística</td>
+<td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-body-sm font-semibold bg-success-bg text-success-text border border-emerald-200">DISPONIBLE</span></td>
+<td class="py-3 px-4">Rack 04 - Bahía C</td>
+<td class="py-3 px-4 text-right text-secondary font-medium">Gestionar</td>
+</tr>
+<tr class="bg-surface-container-lowest">
+<td class="py-3 px-4 font-semibold text-primary">ACT-102</td>
+<td class="py-3 px-4">Honeywell EDA51 Terminal Portátil</td>
+<td class="py-3 px-4 text-on-surface-variant">HW-44109-A</td>
+<td class="py-3 px-4">Capturadores RF</td>
+<td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-body-sm font-semibold bg-secondary-container text-on-secondary-container border border-blue-200">ASIGNADO</span></td>
+<td class="py-3 px-4">Picking Sede Norte</td>
+<td class="py-3 px-4 text-right text-secondary font-medium">Gestionar</td>
+</tr>
+<tr class="bg-surface-bright">
+<td class="py-3 px-4 font-semibold text-primary">ACT-103</td>
+<td class="py-3 px-4">Cisco Catalyst 9300 Switch</td>
+<td class="py-3 px-4 text-on-surface-variant">CS-88127-K</td>
+<td class="py-3 px-4">Redes y Telecom</td>
+<td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-body-sm font-semibold bg-warning-bg text-warning-text border border-amber-200">EN MANTENIMIENTO</span></td>
+<td class="py-3 px-4">Taller IT Central</td>
+<td class="py-3 px-4 text-right text-secondary font-medium">Gestionar</td>
+</tr>
+<tr class="bg-secondary-container/30 border-l-4 border-l-secondary">
+<td class="py-3 px-4 font-semibold text-primary">ACT-104</td>
+<td class="py-3 px-4 font-medium text-primary">Laptop Dell Precision 5570</td>
+<td class="py-3 px-4 text-on-surface-variant font-mono">DP55-9821</td>
+<td class="py-3 px-4">Cómputo</td>
+<td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-body-sm font-semibold bg-success-bg text-success-text border border-emerald-200">DISPONIBLE</span></td>
+<td class="py-3 px-4">Almacén Seguro - Estante B</td>
+<td class="py-3 px-4 text-right text-secondary font-medium">Gestionar</td>
+</tr>
+<tr class="bg-surface-bright">
+<td class="py-3 px-4 font-semibold text-primary">ACT-105</td>
+<td class="py-3 px-4">Datalogic Memor 10 Scanner</td>
+<td class="py-3 px-4 text-on-surface-variant">DL-77341-S</td>
+<td class="py-3 px-4">Capturadores RF</td>
+<td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-body-sm font-semibold bg-retired-bg text-retired-text border border-outline">DE BAJA</span></td>
+<td class="py-3 px-4">Bajas Definitivas</td>
+<td class="py-3 px-4 text-right text-secondary font-medium">Gestionar</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+</div>
+<!-- ========================================== -->
+<!-- 2. BACKDROP TRANSLÚCIDO OSCURO             -->
+<!-- ========================================== -->
+<div class="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-150 flex items-center justify-center p-4">
+<!-- ========================================== -->
+<!-- 3. VENTANA MODAL CENTRADA DE ALTA PRECISIÓN -->
+<!-- ========================================== -->
+<div aria-labelledby="modal-title" aria-modal="true" class="relative z-50 max-w-2xl w-full mx-auto bg-surface-bright rounded-lg border border-outline shadow-xl overflow-hidden flex flex-col text-on-surface animate-in fade-in zoom-in-95 duration-200" role="dialog">
+<!-- CABECERA DEL MODAL -->
+<div class="px-6 py-5 border-b border-outline bg-surface-bright flex items-start justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-2.5">
+<h1 class="font-semibold text-headline-md text-primary leading-tight" id="modal-title">
+              Gestión Operativa del Activo: ACT-104
+            </h1>
+<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold px-2 py-0.5 rounded inline-flex items-center tracking-wide">
+              DISPONIBLE
+            </span>
+</div>
+<p class="text-xs text-on-surface-variant mt-0.5 font-normal">
+            Laptop Dell Precision 5570 (S/N: DP55-9821) | Cómputo
+          </p>
+</div>
+<button aria-label="Cerrar modal" class="text-outline-variant hover:text-primary hover:bg-surface-container-low rounded p-1.5 transition-colors duration-150 flex items-center justify-center -mr-1" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="close">close</span>
+</button>
+</div>
+<!-- SELECTOR DE OPERACIÓN / SEGMENTED TABS -->
+<div class="px-6 pt-4 pb-0 bg-surface-container-low border-b border-outline flex gap-2 overflow-x-auto">
+<!-- Tab 1: Asignar (Activa) -->
+<button class="bg-surface-bright border border-outline border-b-surface-bright text-primary font-semibold text-body-md px-4 py-2.5 rounded-t-md -mb-px flex items-center gap-2 whitespace-nowrap focus:outline-none" type="button">
+<span class="material-symbols-outlined text-lg text-primary" data-icon="person_add">person_add</span>
+<span>Asignar a Custodio / Empleado</span>
+</button>
+<!-- Tab 2: Enviar a Mantenimiento (Inactiva) -->
+<button class="text-on-surface-variant hover:text-primary font-normal text-body-md px-4 py-2.5 rounded-t-md transition-colors duration-150 flex items-center gap-2 whitespace-nowrap hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-lg text-on-surface-variant" data-icon="build">build</span>
+<span>Enviar a Mantenimiento Técnico</span>
+</button>
+<!-- Tab 3: Dar de Baja (Inactiva) -->
+<button class="text-retired-text hover:text-on-surface-variant font-normal text-body-md px-4 py-2.5 rounded-t-md transition-colors duration-150 flex items-center gap-2 whitespace-nowrap hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-lg text-retired-text" data-icon="archive">archive</span>
+<span>Dar de Baja Definitiva</span>
+</button>
+</div>
+<!-- CUERPO DEL MODAL (FORMULARIO TÉCNICO) -->
+<div class="px-6 py-5 space-y-4 max-h-[716px] overflow-y-auto bg-surface-bright">
+<form class="grid grid-cols-2 gap-4" id="assignment-form">
+<!-- Campo 1: Custodio (col-span-2) -->
+<div class="col-span-2">
+<div class="flex items-center justify-between mb-1">
+<label class="font-medium text-xs text-on-surface-variant" for="custodio">Nombre del Custodio / Empleado</label>
+<span class="text-[10px] font-semibold text-primary px-1.5 py-0.2 bg-surface-container border border-outline rounded">Requerido</span>
+</div>
+<div class="relative">
+<input class="w-full border border-outline rounded text-body-md px-3 py-2 text-primary bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="custodio" name="custodio" type="text" value="Alejandro Morales - Ing. de Datos"/>
+</div>
+</div>
+<!-- Campo 2: Departamento (col-span-1) -->
+<div class="col-span-1">
+<label class="font-medium text-xs text-on-surface-variant block mb-1" for="depto">Departamento / Área Solicitante</label>
+<div class="relative">
+<select class="w-full appearance-none border border-outline rounded text-body-md px-3 py-2 text-primary bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none pr-8 transition-all" id="depto" name="depto">
+<option selected="" value="it">Ingeniería / TI</option>
+<option value="bodega">Operaciones Bodega</option>
+<option value="finanzas">Finanzas</option>
+<option value="logistica">Logística</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Campo 3: Fecha de Entrega (col-span-1) -->
+<div class="col-span-1">
+<label class="font-medium text-xs text-on-surface-variant block mb-1" for="fecha">Fecha de Entrega / Asignación</label>
+<div class="relative">
+<input class="w-full border border-outline rounded text-body-md px-3 py-2 text-primary bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="fecha" name="fecha" type="date" value="2024-05-18"/>
+</div>
+</div>
+<!-- Campo 4: Ubicación Prevista (col-span-2) -->
+<div class="col-span-2">
+<label class="font-medium text-xs text-on-surface-variant block mb-1" for="ubicacion">Ubicación de Uso Prevista</label>
+<input class="w-full border border-outline rounded text-body-md px-3 py-2 text-primary bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="ubicacion" name="ubicacion" type="text" value="Oficina Sede Norte - Piso 3 (Estación Dev-14)"/>
+</div>
+<!-- Campo 5: Observaciones (col-span-2) -->
+<div class="col-span-2">
+<label class="font-medium text-xs text-on-surface-variant block mb-1" for="observaciones">Observaciones de Entrega y Accesorios</label>
+<textarea class="w-full border border-outline rounded text-body-md p-3 text-primary bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none transition-all" id="observaciones" name="observaciones" rows="3">Incluye cargador original Dell 130W USB-C, maletín reforzado impermeable y mouse inalámbrico óptico con receptor USB.</textarea>
+</div>
+</form>
+<!-- ALERTA INFORMATIVA EN BASE -->
+<div class="bg-blue-50 border border-blue-200 rounded p-3.5 flex items-start gap-3">
+<span class="material-symbols-outlined text-blue-600 text-lg shrink-0 mt-0.5" data-icon="info">info</span>
+<p class="text-xs text-blue-900 leading-relaxed font-body-sm">
+            Al confirmar la asignación, el estado del activo cambiará automáticamente a <span class="font-semibold text-blue-950">ASIGNADO</span> y se generará el acta digital de entrega con firma electrónica para el custodio.
+          </p>
+</div>
+</div>
+<!-- PIE DE ACCIONES DEL MODAL -->
+<div class="px-6 py-4 bg-surface-container-low border-t border-outline flex items-center justify-between">
+<!-- Texto secundario técnico de auditoría -->
+<div class="text-xs text-on-surface-variant font-mono">
+          Operador: M. Rodriguez (ID: BDG-WS-092)
+        </div>
+<!-- Grupo de botones alineados -->
+<div class="flex items-center gap-3">
+<!-- Cancelar -->
+<button class="bg-surface-bright border border-outline text-on-surface hover:bg-surface-container text-body-md font-medium px-4 py-2 rounded shadow-sm transition-colors duration-150 focus:outline-none focus:ring-1 focus:ring-outline" type="button">
+            Cancelar
+          </button>
+<!-- Confirmar Asignación -->
+<button class="bg-primary hover:bg-primary-container text-on-primary text-body-md font-medium px-4 py-2 rounded shadow-sm flex items-center gap-2 transition-colors duration-150 active:scale-95" type="button">
+<span class="material-symbols-outlined text-base" data-icon="task_alt">task_alt</span>
+<span>Confirmar Asignación de Activo</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

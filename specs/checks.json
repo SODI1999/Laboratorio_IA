@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "checks": [
+    {
+      "id": "backend-tests",
+      "command": "node run-tests.mjs",
+      "cwd": ".",
+      "timeoutMs": 300000
+    }
+  ]
+}

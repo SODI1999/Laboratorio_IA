@@ -1,0 +1,17 @@
+# OMNI-SPEC-START
+# OmniSpec local state, restorable runtime and regenerated reference (managed section).
+# Specs, records, context, decisions and contracts stay versioned.
+manifest.lock/
+*.tmp
+manifest.json.tmp.*
+.omni/verify.lock/
+.omni/verification-logs/
+.omni/backups/
+.omni/inputs/
+.omni/runtime/
+.omni/reference/
+.omni/memory.db*
+.omni/quarantine/
+project-state.json
+decisions/*.json.tmp.*
+# OMNI-SPEC-END

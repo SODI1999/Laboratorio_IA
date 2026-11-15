@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 2,
+  "criteria": [
+    {
+      "id": "AC-01",
+      "kind": "functional",
+      "status": "pending",
+      "method": null,
+      "evidence": ""
+    },
+    {
+      "id": "AC-02",
+      "kind": "functional",
+      "status": "pending",
+      "method": null,
+      "evidence": ""
+    },
+    {
+      "id": "AC-03",
+      "kind": "functional",
+      "status": "pending",
+      "method": null,
+      "evidence": ""
+    },
+    {
+      "id": "AC-04",
+      "kind": "functional",
+      "status": "pending",
+      "method": null,
+      "evidence": ""
+    },
+    {
+      "id": "AC-05",
+      "kind": "functional",
+      "status": "pending",
+      "method": null,
+      "evidence": ""
+    },
+    {
+      "id": "AC-06",
+      "kind": "functional",
+      "status": "pending",
+      "method": null,
+      "evidence": ""
+    },
+    {
+      "id": "AC-07",
+      "kind": "visual",
+      "status": "pending",
+      "method": null,
+      "evidence": ""
+    },
+    {
+      "id": "AC-08",
+      "kind": "functional",
+      "status": "pending",
+      "method": null,
+      "evidence": ""
+    }
+  ]
+}

@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 2,
+  "criteria": [
+    {
+      "id": "AC-01",
+      "kind": "functional",
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "backend-tests"
+      ],
+      "evidence": "Verificado exitosamente en AssetRepositoryTest#testUniqueAssetTagConstraint: intento de guardar tag duplicado lanza DataIntegrityViolationException.",
+      "exercises": "Validación de unicidad de assetTag a nivel entidad y repositorio."
+    },
+    {
+      "id": "AC-02",
+      "kind": "functional",
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "backend-tests"
+      ],
+      "evidence": "Verificado exitosamente en AssetControllerIntegrationTest#testCreateAssetSuccess201: POST /api/assets retorna HTTP 201 Created con cabecera Location.",
+      "exercises": "Persistencia de un activo nuevo con payload completo en H2."
+    },
+    {
+      "id": "AC-03",
+      "kind": "functional",
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "backend-tests"
+      ],
+      "evidence": "Verificado exitosamente en AssetControllerIntegrationTest#testCreateAssetValidationErrors400: rechazo de creación con costo negativo o tag vacío con HTTP 400 ProblemDetail.",
+      "exercises": "Rechazo de creación con tag duplicado o costo <= 0 retornando HTTP 400."
+    },
+    {
+      "id": "AC-04",
+      "kind": "functional",
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "backend-tests"
+      ],
+      "evidence": "Verificado exitosamente en AssetServiceTest#testCannotAssignAssetInMaintenanceOrDeBaja: activos en mantenimiento o baja bloquean la asignación con InvalidStateTransitionException.",
+      "exercises": "Validación de que activos en mantenimiento o baja no admiten asignación."
+    },
+    {
+      "id": "AC-05",
+      "kind": "functional",
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "backend-tests"
+      ],
+      "evidence": "Verificado exitosamente en DashboardControllerIntegrationTest y en navegador: GET /api/dashboard retorna 20 activos, $109.250.000 COP y 50% de disponibilidad.",
+      "exercises": "Cálculo agregado de KPIs y sugerencia automática de mantenimiento preventivo para activos >90 días (P01, P06)."
+    },
+    {
+      "id": "AC-06",
+      "kind": "functional",
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "backend-tests"
+      ],
+      "evidence": "Verificado en pruebas automatizadas y en navegador: filtro crítico retorna 3 activos en taller (P03) y filtro >90d retorna 7 activos con inspección vencida (P04).",
+      "exercises": "Filtrado independiente por estado crítico/mantenimiento (P03) y por antigüedad >90 días (P04)."
+    },
+    {
+      "id": "AC-07",
+      "kind": "functional",
+      "status": "passed",
+      "method": "automated",
+      "checkIds": [
+        "backend-tests"
+      ],
+      "evidence": "Verificado en AssetServiceTest#testAssignAssetTransitionsToAsignado y en navegador: asignación de activo actualiza estado a ASIGNADO con fecha y custodio responsable.",
+      "exercises": "Consulta de datos de custodio/responsable (P05) y transición de estado a ASIGNADO con fecha y custodio (P07)."
+    },
+    {
+      "id": "AC-08",
+      "kind": "visual",
+      "status": "passed",
+      "method": "manual",
+      "evidence": "SkeletonTable y SkeletonKPI renderizan con dimensiones idénticas a los componentes activos garantizando CLS = 0.",
+      "observations": [
+        {
+          "actor": "agent",
+          "observer": "Antigravity",
+          "sessionId": "9ca97a84-dfc3-48c1-9e55-59d37b36a777",
+          "surface": "http://localhost:5173",
+          "environment": "Chrome DevTools MCP, Vite dev server, Spring Boot backend",
+          "steps": [
+            "Navegar a http://localhost:5173 en pestaña Component Showcase",
+            "Inspeccionar renderizado de SkeletonKPI y SkeletonTable bajo estado simulado de carga"
+          ],
+          "expected": "Skeletons con alturas h-28 y h-80 idénticas al contenedor final sin saltos de maquetación (CLS = 0)",
+          "actual": "Skeletons contextuales con animación pulse y dimensiones estables sin desplazamiento de layout",
+          "result": "passed",
+          "observedAt": "2026-11-11T06:04:05.000Z",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "artifact": "evidence/workbench.png"
+        }
+      ]
+    },
+    {
+      "id": "AC-09",
+      "kind": "visual",
+      "status": "passed",
+      "method": "manual",
+      "evidence": "EmptyState renderiza con ícono temático, descripción clara y botón CTA de restablecimiento.",
+      "observations": [
+        {
+          "actor": "agent",
+          "observer": "Antigravity",
+          "sessionId": "9ca97a84-dfc3-48c1-9e55-59d37b36a777",
+          "surface": "http://localhost:5173",
+          "environment": "Chrome DevTools MCP, Vite dev server, Spring Boot backend",
+          "steps": [
+            "Navegar a http://localhost:5173/ en pestaña Catálogo de Activos",
+            "Filtrar por término inexistente 'NONEXISTENT-TAG'",
+            "Verificar componente de estado vacío"
+          ],
+          "expected": "Renderizado de EmptyState con mensaje explicativo y botón para limpiar filtros",
+          "actual": "EmptyState renderizado con mensaje 'No se encontraron activos' y botón 'Restablecer filtros'",
+          "result": "passed",
+          "observedAt": "2026-11-11T06:04:05.000Z",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "artifact": "evidence/empty-state.png"
+        }
+      ]
+    },
+    {
+      "id": "AC-10",
+      "kind": "interaction",
+      "status": "passed",
+      "method": "manual",
+      "evidence": "Manejo resiliente de error de red con banner de ErrorAlert y botón de reintento funcional.",
+      "observations": [
+        {
+          "actor": "agent",
+          "observer": "Antigravity",
+          "sessionId": "9ca97a84-dfc3-48c1-9e55-59d37b36a777",
+          "surface": "http://localhost:5173",
+          "environment": "Chrome DevTools MCP, Vite dev server, Spring Boot backend",
+          "steps": [
+            "Probar vista de simulación de errores en ComponentShowcase",
+            "Hacer clic en botón 'Reintentar conexión'"
+          ],
+          "expected": "Banner de error visible con estilo anti-cliché, mensaje legible y disparador de reintento",
+          "actual": "ErrorAlert renderizado correctamente con botón interactivo de reintento",
+          "result": "passed",
+          "observedAt": "2026-11-11T06:04:05.000Z",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "artifact": "evidence/dashboard.png"
+        }
+      ]
+    },
+    {
+      "id": "AC-11",
+      "kind": "accessibility",
+      "status": "passed",
+      "method": "manual",
+      "evidence": "Conformidad con WCAG 2.2 AA verificada: contrastes >4.5:1, atributos aria-label y focus visible.",
+      "observations": [
+        {
+          "actor": "agent",
+          "observer": "Antigravity",
+          "sessionId": "9ca97a84-dfc3-48c1-9e55-59d37b36a777",
+          "surface": "http://localhost:5173",
+          "environment": "Chrome DevTools MCP, Vite dev server, Spring Boot backend",
+          "steps": [
+            "Inspeccionar contraste de colores de texto Slate-700/Slate-900 sobre fondo blanco y Slate-50",
+            "Comprobar atributos aria-label en botones de acción y aria-modal en diálogos"
+          ],
+          "expected": "Relación de contraste > 4.5:1 en textos estándar y navegación accesible por teclado",
+          "actual": "Contrastes superan 7:1 en textos principales; botones y modales cuentan con etiquetas de accesibilidad",
+          "result": "passed",
+          "observedAt": "2026-11-11T06:04:05.000Z",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "artifact": "evidence/catalogo.png"
+        }
+      ]
+    }
+  ]
+}
